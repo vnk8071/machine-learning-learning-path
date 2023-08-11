@@ -27,6 +27,9 @@ logging.basicConfig(
     filemode='w',
     format='%(name)s - %(levelname)s - %(message)s'
 )
+EDA_PATH = "./images/eda"
+RESULTS_PATH = "./images/results"
+MODEL_PATH = "./models"
 CAT_COLUMNS = [
     'Gender',
     'Education_Level',
@@ -90,26 +93,30 @@ def perform_eda(df):
 
     df['Churn'] = df['Attrition_Flag'].apply(
         lambda val: 0 if val == "Existing Customer" else 1)
-
     plt.figure(figsize=(20, 10))
     df['Churn'].hist()
-    plt.savefig("./images/eda/churn_histogram.png")
+    plt.savefig(os.path.join(EDA_PATH, "churn_histogram.png"))
 
     plt.figure(figsize=(20, 10))
     df['Customer_Age'].hist()
-    plt.savefig("./images/eda/customer_age_histogram.png")
+    plt.savefig(os.path.join(EDA_PATH, "customer_age_histogram.png"))
 
     plt.figure(figsize=(20, 10))
     df.Marital_Status.value_counts('normalize').plot(kind='bar')
-    plt.savefig("./images/eda/marital_status_counts.png")
+    plt.savefig(os.path.join(EDA_PATH, "marital_status_counts.png"))
 
     plt.figure(figsize=(20, 10))
     sns.histplot(df['Total_Trans_Ct'], stat='density', kde=True)
-    plt.savefig("./images/eda/total_transaction_histogram.png")
+    plt.savefig(os.path.join(EDA_PATH, "total_transaction_histogram.png"))
 
     plt.figure(figsize=(20, 10))
-    sns.heatmap(df.corr(), annot=False, cmap='Dark2_r', linewidths=2)
-    plt.savefig("./images/eda/heatmap.png")
+    sns.heatmap(
+        df.corr(
+            numeric_only=True),
+        annot=False,
+        cmap='Dark2_r',
+        linewidths=2)
+    plt.savefig(os.path.join(EDA_PATH, "heatmap.png"))
 
 
 def encoder_helper(df, category_lst, response):
@@ -128,7 +135,7 @@ def encoder_helper(df, category_lst, response):
     """
     for category in category_lst:
         cat_lst = []
-        cat_groups = df.groupby(category).mean()[response]
+        cat_groups = df.groupby(category).mean(numeric_only=True)[response]
         for val in df[category]:
             cat_lst.append(cat_groups.loc[val])
         df[category + "_" + response] = cat_lst
@@ -136,12 +143,10 @@ def encoder_helper(df, category_lst, response):
     return df
 
 
-def perform_feature_engineering(df, response=None):
+def perform_feature_engineering(df):
     """
     input:
         df: pandas dataframe
-        response: string of response name [optional argument that could be used for naming \
-            variables or index y column]
 
     output:
         X_train: X training data
@@ -190,6 +195,8 @@ def classification_report_image(
     output:
         None
     """
+    plt.close()
+    plt.clf()
     plt.rc('figure', figsize=(5, 5))
     plt.text(0.01, 1.25, str('Random Forest Train'), {
         'fontsize': 10}, fontproperties='monospace')
@@ -203,7 +210,7 @@ def classification_report_image(
                 y_train, y_train_preds_rf)), {
             'fontsize': 10}, fontproperties='monospace')
     plt.axis('off')
-    plt.savefig("./images/results/rf_classification_report.png")
+    plt.savefig(os.path.join(RESULTS_PATH, "rf_classification_report.png"))
     logging.info("SUCCESS: classification_report_image: random forest")
 
     # Save the logistic regression classification report image.
@@ -222,7 +229,7 @@ def classification_report_image(
     plt.text(0.01, 0.7, str(classification_report(y_test, y_test_preds_lr)), {
         'fontsize': 10}, fontproperties='monospace')
     plt.axis('off')
-    plt.savefig("./images/results/lr_classification_report.png")
+    plt.savefig(os.path.join(RESULTS_PATH, "lr_classification_report.png"))
     logging.info(
         msg="SUCCESS: classification_report_image: logistic regression")
 
@@ -284,7 +291,7 @@ def train_models(X_train, X_test, y_train, y_test):
 
     param_grid = {
         'n_estimators': [200, 500],
-        'max_features': ['auto', 'sqrt'],
+        'max_features': ['sqrt'],
         'max_depth': [4, 5, 100],
         'criterion': ['gini', 'entropy']
     }
@@ -314,48 +321,56 @@ def train_models(X_train, X_test, y_train, y_test):
     print(classification_report(y_train, y_train_preds_lr))
 
     # Save the models
-    joblib.dump(cv_rfc.best_estimator_, './models/rfc_model.pkl')
-    joblib.dump(lrc, './models/logistic_model.pkl')
+    joblib.dump(
+        cv_rfc.best_estimator_,
+        os.path.join(
+            MODEL_PATH,
+            "rfc_model.pkl"))
+    joblib.dump(lrc, os.path.join(MODEL_PATH, "logistic_model.pkl"))
 
     # Save the classification report images
     classification_report_image(
         y_train=y_train,
         y_test=y_test,
         y_train_preds_lr=y_train_preds_rf,
-        y_train_preds_rf=y_test_preds_rf,
-        y_test_preds_lr=y_train_preds_lr,
-        y_test_preds_rf=y_test_preds_lr
+        y_train_preds_rf=y_train_preds_lr,
+        y_test_preds_lr=y_test_preds_lr,
+        y_test_preds_rf=y_test_preds_rf
     )
 
     # Save the feature importance plot
     feature_importance_plot(
         model=cv_rfc,
         X_data=X_train,
-        output_pth='./images/results/cv_feature_importance.png'
+        output_pth=os.path.join(RESULTS_PATH, "cv_feature_importance.png")
     )
 
-    svc_disp = RocCurveDisplay.from_estimator(
-        cv_rfc.best_estimator_, X_test, y_test)
-    plt.savefig("./images/results/lrc_roc_curve.png")
-    logging.info("SUCCESS: model_train: save lrc roc curve")
+    lrc_plot = RocCurveDisplay.from_estimator(
+        lrc, X_test, y_test)
+    plt.savefig(os.path.join(RESULTS_PATH, "lr_roc_curve.png"))
+    logging.info("SUCCESS: model_train: save lr roc curve")
 
     # Combine both lrc ans rfc roc plots
-    plt.clf()
-    plt.close()
     plt.figure(figsize=(15, 8))
     ax = plt.gca()
     _ = RocCurveDisplay.from_estimator(
         cv_rfc.best_estimator_, X_test, y_test, ax=ax, alpha=0.8)
-    svc_disp.plot(ax=ax, alpha=0.8)
-    plt.savefig("./images/results/lrc_rfc_roc_curves.png")
-    logging.info("SUCCESS: model_train: save lrc and rfc roc curves")
+    lrc_plot.plot(ax=ax, alpha=0.8)
+    plt.savefig(os.path.join(RESULTS_PATH, "lr_rf_roc_curves.png"))
+    logging.info("SUCCESS: model_train: save lr and rf roc curves")
 
 
 if __name__ == '__main__':
     df = import_data("./data/bank_data.csv")
     logging.info(df)
     perform_eda(df)
-    df = encoder_helper(df, CAT_COLUMNS, None)
-    X_train, X_test, y_train, y_test = perform_feature_engineering(
-        df, None)
+    logging.info("SUCCESS: perform_eda")
+    logging.info("START: encoder_helper")
+    df = encoder_helper(df, CAT_COLUMNS, "Churn")
+    logging.info("SUCCESS: encoder_helper")
+    logging.info("START: perform_feature_engineering")
+    X_train, X_test, y_train, y_test = perform_feature_engineering(df)
+    logging.info("SUCCESS: perform_feature_engineering")
+    logging.info("START: train_models")
     train_models(X_train, X_test, y_train, y_test)
+    logging.info("SUCCESS: train_models")
