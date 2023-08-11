@@ -1,0 +1,26 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: requirements-txt-fixer
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: 'v2.0.2'
+    hooks:
+      - id: autopep8
+        args: [
+          "--aggressive",
+          "--aggressive",
+          "--in-place",
+        ]
+  # - repo: https://github.com/pre-commit/mirrors-pylint
+  #   rev: 'v3.0.0a5'
+  #   hooks:
+  #     - id: pylint
+  #       args:
+  #         [
+  #           "-rn", # Only display messages
+  #           "-sn", # Don't display the score
+  #         ]
