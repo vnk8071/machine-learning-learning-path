@@ -1,0 +1,58 @@
+main:
+  project_name: genre_classification
+  experiment_name: dev
+  execute_steps:
+    - download
+    - preprocess
+    - check_data
+    - segregate
+    - random_forest
+    - evaluate
+  random_seed: 42
+data:
+  file_url: "https://github.com/udacity/nd0821-c2-build-model-workflow-exercises/blob/master/lesson-2-data-exploration-and-preparation/exercises/exercise_4/starter/genres_mod.parquet?raw=true"
+  reference_dataset: "genre_classification/preprocessed_data.csv:latest"
+  ks_alpha: 0.05
+  test_size: 0.3
+  val_size: 0.3
+  stratify: genre
+random_forest_pipeline:
+  random_forest:
+    n_estimators: 100
+    criterion: 'gini'
+    max_depth: 13
+    min_samples_split: 2
+    min_samples_leaf: 1
+    min_weight_fraction_leaf: 0.0
+    max_features: 'sqrt'
+    max_leaf_nodes: null
+    min_impurity_decrease: 0.0
+    bootstrap: true
+    oob_score: false
+    n_jobs: null
+    random_state: 42
+    verbose: 0
+    warm_start: false
+    class_weight: "balanced"
+    ccp_alpha: 0.0
+    max_samples: null
+  tfidf:
+    max_features: 10
+  features:
+    numerical:
+      - "danceability"
+      - "energy"
+      - "loudness"
+      - "speechiness"
+      - "acousticness"
+      - "instrumentalness"
+      - "liveness"
+      - "valence"
+      - "tempo"
+      - "duration_ms"
+    categorical:
+      - "time_signature"
+      - "key"
+    nlp:
+      - "text_feature"
+  export_artifact: "model_export"

@@ -41,4 +41,4 @@ ci:
 #* Tests
 .PHONY: tests
 tests:
-	poetry run pytest churn_script_logging_and_tests.py
+	poetry run pytest --cov=src --cov-report=term-missing --cov-report=xml tests
