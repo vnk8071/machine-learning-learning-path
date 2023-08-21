@@ -1,0 +1,12 @@
+name: test_regression_model
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pandas=2.0.3
+  - pip=23.2.1
+  - mlflow=2.6.0
+  - scikit-learn=0.24.1
+  - pip:
+      - wandb==0.15.8
+      - git+https://github.com/udacity/nd0821-c2-build-model-workflow-starter.git#egg=wandb-utils&subdirectory=components
