@@ -57,6 +57,8 @@ mlflow run . -P steps=download
 ```bash
 mlflow run src/eda
 ```
+More details in [![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F.svg?style=for-the-badge&logo=jupyter&logoColor=white)](src/eda/EDA.ipynb)
+
 <img src="images/EDA.png">
 
 ### 4.3. Basic cleaning
@@ -138,6 +140,13 @@ mlflow run https://github.com/vnk8071/ml-production.git -v 1.0.1 -P hydra_option
 2023-08-21 22:06:44,631 Converting last_review to datetime
 2023-08-21 22:06:44,654 Saving cleaned dataframe to csv
 2023-08-21 22:06:45,052 Logging artifact
+...
+test_data.py::test_column_names PASSED                            [ 16%]
+test_data.py::test_neighborhood_names PASSED                      [ 33%]
+test_data.py::test_proper_boundaries PASSED                       [ 50%]
+test_data.py::test_similar_neigh_distrib PASSED                   [ 66%]
+test_data.py::test_price_range PASSED                             [ 83%]
+test_data.py::test_row_count PASSED                               [100%]
 ...
 2023-08-21 22:09:01,322 Downloading artifacts
 2023-08-21 22:09:04,782 Loading model and performing inference on test set
