@@ -126,3 +126,8 @@ mlflow run . -P steps=test_regression_model
 2023-08-21 20:52:32,341 Score: 0.5640242000942114
 2023-08-21 20:52:32,341 MAE: 33.850181065122136
 ```
+
+## 5. Public W&B project
+```bash
+Link: https://wandb.ai/nguyenkhoi8071/nyc_airbnb/overview?workspace=user-nguyenkhoi8071
+```
