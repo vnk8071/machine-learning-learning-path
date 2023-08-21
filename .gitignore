@@ -166,3 +166,4 @@ artifacts/
 wandb/
 outputs/
 mlruns/
+multirun/

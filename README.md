@@ -127,6 +127,24 @@ mlflow run . -P steps=test_regression_model
 2023-08-21 20:52:32,341 MAE: 33.850181065122136
 ```
 
+### 4.8. Test model with new dataset
+```
+mlflow run https://github.com/vnk8071/ml-production.git -v 1.0.1 -P hydra_options="etl.sample='sample2.csv'"
+...
+2023-08-21 22:06:44,481 Dropping duplicates
+2023-08-21 22:06:44,607 Dropping outliers
+2023-08-21 22:06:44,607 Number of rows before dropping outliers: 48895
+2023-08-21 22:06:44,630 Number of rows after dropping outliers: 46427
+2023-08-21 22:06:44,631 Converting last_review to datetime
+2023-08-21 22:06:44,654 Saving cleaned dataframe to csv
+2023-08-21 22:06:45,052 Logging artifact
+...
+2023-08-21 22:09:01,322 Downloading artifacts
+2023-08-21 22:09:04,782 Loading model and performing inference on test set
+2023-08-21 22:09:05,168 Scoring
+2023-08-21 22:09:05,298 Score: 0.6195968265496492
+2023-08-21 22:09:05,298 MAE: 31.64257699859779
+```
 ## 5. Public W&B project
 ```bash
 Link: https://wandb.ai/nguyenkhoi8071/nyc_airbnb/overview?workspace=user-nguyenkhoi8071
