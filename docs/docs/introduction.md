@@ -23,3 +23,5 @@ Technologies stack used:
 - Experiment tracking: Weights & Biases
 
 Inspired by Machine Learning DevOps Engineer by Udacity.
+
+# Future work
