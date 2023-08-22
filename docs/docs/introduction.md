@@ -25,3 +25,4 @@ Technologies stack used:
 Inspired by Machine Learning DevOps Engineer by Udacity.
 
 # Future work
+Build ML platform
