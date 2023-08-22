@@ -9,7 +9,37 @@ on:
     # Review gh actions docs if you want to further define triggers, paths, etc
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 
+env:
+  POETRY_VERSION: "1.5.1"
+
 jobs:
+  extended-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKDIR }}
+    strategy:
+      matrix:
+        python-version:
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
+    name: Python ${{ matrix.python-version }} extended tests
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: "./.github/actions/poetry_setup"
+        with:
+          python-version: ${{ matrix.python-version }}
+          working-directory: ${{ env.WORKDIR }}
+          poetry-version: ${{ env.POETRY_VERSION }}
+          cache-key: extended
+          install-command: |
+            echo "Running extended tests, installing dependencies with poetry..."
+            poetry install -E extended_testing
+      - name: Run extended tests
+        run: make extended_tests
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
