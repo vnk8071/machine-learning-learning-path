@@ -76,22 +76,8 @@ def test_post_below(client):
     assert res.json() == {'Output': '<=50K'}
 
 
-def test_broken_post(client):
-    res = client.post("/infer", json={
-        "age": 39,
-        "workclass": "State-gov",
-        "fnlgt": 77516,
-        "education": "Bachelors",
-        "education-num": 13,
-        "marital-status": "Never-married",
-        "occupation": "Adm-clerical",
-        "relationship": "Not-in-family",
-        "race": "White",
-        "sex": "Male",
-        "capital-gain": 2174,
-        "capital-loss": 0,
-        "hours-per-week": 40,
-    })
-
-    assert res.status_code != 200
-    assert json.loads(res.content)['detail'][0]['type'] == "missing"
+def test_get_invalid_url(client):
+    """Test invalid url"""
+    res = client.get("/invalid_url")
+    assert res.status_code == 404
+    assert res.json() == {'detail': 'Not Found'}

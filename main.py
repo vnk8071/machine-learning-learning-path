@@ -28,26 +28,6 @@ class CensusInputData(BaseModel):
     hours_per_week: int = Field(alias='hours-per-week')
     native_country: str = Field(alias='native-country')
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "age": 23,
-                "workclass": "Private",
-                "fnlgt": 8071,
-                "education": "Bachelors",
-                "education-num": 13,
-                "marital-status": "Married_civ_spouse",
-                "occupation": "Craft_repair",
-                "relationship": "Own_child",
-                "race": "Black",
-                "sex": "Male",
-                "capital-gain": 50,
-                "capital-loss": 1000,
-                "hours-per-week": 35,
-                "native-country": "United_States",
-            }
-        }
-
 
 @app.get("/")
 def welcome_root():
