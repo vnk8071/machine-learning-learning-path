@@ -5,11 +5,20 @@ from pydantic import BaseModel, Field
 
 from module.data import process_data
 from module.model import inference
-from module.train_model import cat_features, encoder, lb
 
 
 app = FastAPI()
-model = pickle.load(open("model/model.pkl", "rb"))
+[encoder, lb, model] = pickle.load(open("model/model.pkl", "rb"))
+cat_features = [
+    "workclass",
+    "education",
+    "marital-status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "native-country",
+]
 
 
 class CensusInputData(BaseModel):

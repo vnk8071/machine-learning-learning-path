@@ -76,7 +76,7 @@ logger.info("Saving model...")
 if not os.path.exists("model/"):
     os.mkdir("model/")
 with open("model/model.pkl", "wb") as f:
-    pickle.dump(model, f)
+    pickle.dump([encoder, lb, model], f)
 logger.info("Model saved.")
 
 # Inference on the test data.
