@@ -3,7 +3,6 @@ gunicorn
 numpy
 pandas
 pytest
-python==3.8
 requests
 scikit-learn
 uvicorn
