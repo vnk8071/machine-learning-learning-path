@@ -56,7 +56,7 @@ async def prediction(input_data: CensusInputData):
         dict: Dictionary containing the model output.
     """
     input_df = pd.DataFrame(
-        {k: v for k, v in input_data.model_dump(by_alias=True).items()}, index=[0]
+        {k: v for k, v in input_data.dict(by_alias=True).items()}, index=[0]
     )
 
     processed_input_data, _, _, _ = process_data(

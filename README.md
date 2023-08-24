@@ -102,9 +102,13 @@ tests/test_model.py .....                                             [100%]
 ```
 
 ## 7. Request API
-7.1 Local
+### 7.1. Local
 ```bash
 uvicorn module.api:app --reload
 ```
 Result
 <img src="local_post.png">
+
+### 7.2. Render
+URL: https://vnk8071-api-deployment.onrender.com/docs
+<img src="live_post.png">
