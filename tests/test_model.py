@@ -11,7 +11,7 @@ import pytest
 
 @pytest.fixture(scope="module")
 def data():
-    return pd.read_csv("data/census.csv", skipinitialspace=True)
+    return pd.read_csv("data/census_clean.csv", skipinitialspace=True)
 
 
 def test_column_presence_and_type(data):
