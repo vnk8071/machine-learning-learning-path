@@ -167,3 +167,5 @@ wandb/
 outputs/
 mlruns/
 multirun/
+.docusaurus/
+node_modules/
