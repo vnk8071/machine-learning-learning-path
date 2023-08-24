@@ -100,3 +100,11 @@ Result
 tests/test_api.py ....                                                [ 44%]
 tests/test_model.py .....                                             [100%]
 ```
+
+## 7. Request API
+7.1 Local
+```bash
+uvicorn module.api:app --reload
+```
+Result
+<img src="local_post.png">
