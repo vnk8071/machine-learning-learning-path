@@ -1,5 +1,6 @@
 fastapi==0.101.1
 gunicorn
+httpx
 numpy
 pandas
 pytest
