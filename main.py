@@ -55,7 +55,7 @@ class CensusInputData(BaseModel):
                     "capital-loss": 0,
                     "hours-per-week": 45,
                     "native-country": "United-States"
-                },
+                }
             ]
         }
     }
