@@ -62,21 +62,32 @@ python module/train_model.py
 ```
 Result
 ```
-2023-08-24 22:52:51,274 - INFO - Splitting data into train and test sets...
-2023-08-24 22:52:51,281 - INFO - Processing data...
-2023-08-24 22:52:51,488 - INFO - Training model...
-2023-08-24 22:52:51,729 - INFO - LogisticRegression(max_iter=1000, random_state=8071)
-2023-08-24 22:52:51,730 - INFO - Saving model...
-2023-08-24 22:52:51,731 - INFO - Model saved.
-2023-08-24 22:52:51,731 - INFO - Inference model...
-2023-08-24 22:52:51,732 - INFO - Calculating model metrics...
-2023-08-24 22:52:51,743 - INFO - >>>Precision: 0.7110332749562172
-2023-08-24 22:52:51,743 - INFO - >>>Recall: 0.2617666021921341
-2023-08-24 22:52:51,743 - INFO - >>>Fbeta: 0.3826578699340245
-2023-08-24 22:52:51,743 - INFO - Calculating model metrics on slices data...
-2023-08-24 22:52:52,730 - INFO - >>>Precision with slices data: 1.0
-2023-08-24 22:52:52,730 - INFO - >>>Recall with slices data: 1.0
-2023-08-24 22:52:52,730 - INFO - >>>Fbeta with slices data: 1.0
+2023-08-25 20:32:56,405 - INFO - Splitting data into train and test sets...
+2023-08-25 20:32:56,412 - INFO - Processing data...
+2023-08-25 20:32:56,634 - INFO - Training model...
+2023-08-25 20:32:57,052 - INFO - LogisticRegression(max_iter=1000, random_state=8071)
+2023-08-25 20:32:57,058 - INFO - Saving model...
+2023-08-25 20:32:57,059 - INFO - Model saved.
+2023-08-25 20:32:57,059 - INFO - Inference model...
+2023-08-25 20:32:57,060 - INFO - Calculating model metrics...
+2023-08-25 20:32:57,074 - INFO - >>>Precision: 0.6551724137931034
+2023-08-25 20:32:57,074 - INFO - >>>Recall: 0.24934383202099739
+2023-08-25 20:32:57,075 - INFO - >>>Fbeta: 0.36121673003802285
+2023-08-25 20:32:57,075 - INFO - Calculating model metrics on slices data...
+2023-08-25 20:32:58,281 - INFO - >>>Metrics with slices data:             feature  ...                    category
+0         workclass  ...                     Private
+1         workclass  ...                           ?
+2         workclass  ...                 Federal-gov
+3         workclass  ...            Self-emp-not-inc
+4         workclass  ...                   State-gov
+..              ...  ...                         ...
+96   native-country  ...                   Nicaragua
+97   native-country  ...                    Scotland
+98   native-country  ...  Outlying-US(Guam-USVI-etc)
+99   native-country  ...                     Ireland
+100  native-country  ...                     Hungary
+
+[101 rows x 5 columns]
 ```
 
 ## 5. Run sanity checks
@@ -107,6 +118,9 @@ tests/test_model.py ........                                                   [
 <img src="images/continuous_integration.png">
 
 ### 7.2. CD with Render
+Settings continuous deployment on Render
+<img src="images/settings_continuous_deployment.png">
+Deployed app
 <img src="images/continuous_deployment.png">
 
 ## 8. Request API

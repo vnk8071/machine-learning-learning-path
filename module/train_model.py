@@ -93,7 +93,7 @@ logger.info(f">>>Fbeta: {fbeta}")
 
 # Calculate accuracy, precision, recall, and F1 scores on slices data.
 logger.info("Calculating model metrics on slices data...")
-precision_slices, recall_slices, fbeta_slices = compute_metrics_with_slices_data(
+metrics = compute_metrics_with_slices_data(
     df=test,
     cat_columns=cat_features,
     label="salary",
@@ -101,6 +101,4 @@ precision_slices, recall_slices, fbeta_slices = compute_metrics_with_slices_data
     lb=lb,
     model=model
 )
-logger.info(f">>>Precision with slices data: {precision_slices}")
-logger.info(f">>>Recall with slices data: {recall_slices}")
-logger.info(f">>>Fbeta with slices data: {fbeta_slices}")
+logger.info(f">>>Metrics with slices data: {metrics}")

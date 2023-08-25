@@ -5,6 +5,7 @@ Date: 2023-08-24
 """
 
 import sys
+import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 
@@ -92,9 +93,11 @@ def compute_metrics_with_slices_data(df, cat_columns, label, encoder, lb, model)
         recall (float): recall score
         f_one (float): f1 score
     """
-    for col in cat_columns:
-        for category in df[col].unique():
-            tmp_df = df[df[col] == category]
+    rows_list = list()
+    for feature in cat_columns:
+        for category in df[feature].unique():
+            row = {}
+            tmp_df = df[df[feature]==category]
 
             x, y, _, _ = process_data(
                 X=tmp_df,
@@ -106,11 +109,15 @@ def compute_metrics_with_slices_data(df, cat_columns, label, encoder, lb, model)
             )
 
             preds = inference(model, x)
-            precision, recall, f_one = compute_model_metrics(y, preds)
+            precision, recall, fbeta = compute_model_metrics(y, preds)
 
-    # Save the metrics with slices data
-    with open("slice_output.txt", "w") as f:
-        f.write(f"Precision: {precision}\n")
-        f.write(f"Recall: {recall}\n")
-        f.write(f"Fbeta: {f_one}\n")
-    return precision, recall, f_one
+            row['feature'] = feature
+            row['precision'] = precision
+            row['recall'] = recall
+            row['f1'] = fbeta
+            row['category'] = category
+            rows_list.append(row)
+
+    metrics = pd.DataFrame(rows_list, columns=["feature", "precision", "recall", "f1", "category"])
+    metrics.to_csv("slice_output.txt", index=False)
+    return metrics
