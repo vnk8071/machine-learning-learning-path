@@ -97,18 +97,32 @@ pytest tests/
 ```
 Result
 ```
-tests/test_api.py ....                                                [ 44%]
-tests/test_model.py .....                                             [100%]
+tests/test_api.py ....                                                         [ 33%]
+tests/test_model.py ........                                                   [100%]
+=========================== 12 passed, 4 warnings in 3.65s ===========================
 ```
 
-## 7. Request API
-### 7.1. Local
+## 7. CI/CD
+### 7.1. Github Actions
+<img src="images/continuous_integration.png">
+
+### 7.2. CD with Render
+<img src="images/continuous_deployment.png">
+
+## 8. Request API
+### 8.1. Local
 ```bash
 uvicorn module.api:app --reload
 ```
 Result
-<img src="local_post.png">
+<img src="images/local_post.png">
 
-### 7.2. Render
-URL: https://vnk8071-api-deployment.onrender.com/docs
-<img src="live_post.png">
+### 8.2. Render
+Check API get method at: https://vnk8071-api-deployment.onrender.com/docs
+<img src=images/live_get.png>
+
+Script to request API method POST
+```bash
+python inference.py
+```
+<img src="images/live_post.png">

@@ -107,4 +107,10 @@ def compute_metrics_with_slices_data(df, cat_columns, label, encoder, lb, model)
 
             preds = inference(model, x)
             precision, recall, f_one = compute_model_metrics(y, preds)
+
+    # Save the metrics with slices data
+    with open("slice_output.txt", "w") as f:
+        f.write(f"Precision: {precision}\n")
+        f.write(f"Recall: {recall}\n")
+        f.write(f"Fbeta: {f_one}\n")
     return precision, recall, f_one

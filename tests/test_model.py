@@ -4,9 +4,26 @@ Author: vnk8071
 Date: 2023-08-24
 """
 
+import pickle
 import pandas as pd
 import pandas.api.types as pdtypes
 import pytest
+from sklearn.model_selection import train_test_split
+
+from module.data import process_data
+from module.model import inference, compute_model_metrics
+
+fake_categorical_features = [
+    "workclass",
+    "education",
+    "marital-status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "native-country",
+
+]
 
 
 @pytest.fixture(scope="module")
@@ -208,3 +225,61 @@ def test_column_values(data):
     for col_name in data.columns.values:
         assert not data[col_name].isnull().any(
         ), f"Column {col_name} has null values"
+
+
+def test_model_input(data):
+    for col_name in data.columns.values:
+        assert not data[col_name].isnull().any(
+        ), f"Features {col_name} has null values"
+
+
+def test_inference(data):
+    """
+    Assert that inference function returns correct
+    amount of predictions with respect to the input
+    """
+
+    _, test_df = train_test_split(data, test_size=0.20)
+    [encoder, lb, lr_model] = pickle.load(open("model/model.pkl", "rb"))
+
+    X_test, y_test, _, _ = process_data(
+        X=test_df,
+        categorical_features=fake_categorical_features,
+        label="salary",
+        training=False,
+        encoder=encoder,
+        lb=lb
+    )
+    preds = inference(lr_model, X_test)
+
+    assert len(preds) == len(X_test)
+
+
+def test_output_metrics(data):
+    """
+    Assert that output metrics are in the correct range
+    """
+
+    _, test_df = train_test_split(data, test_size=0.20)
+    [encoder, lb, lr_model] = pickle.load(open("model/model.pkl", "rb"))
+
+    X_test, y_test, _, _ = process_data(
+        X=test_df,
+        categorical_features=fake_categorical_features,
+        label="salary",
+        training=False,
+        encoder=encoder,
+        lb=lb
+    )
+
+    preds = inference(lr_model, X_test)
+    precision, recall, fbeta = compute_model_metrics(y_test, preds)
+
+    assert precision >= 0.0
+    assert precision <= 1.0
+
+    assert recall >= 0.0
+    assert recall <= 1.0
+
+    assert fbeta >= 0.0
+    assert fbeta <= 1.0
