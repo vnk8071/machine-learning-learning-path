@@ -46,7 +46,7 @@ def test_post_above(client):
         "capital-gain": 5000,
         "capital-loss": 100,
         "hours-per-week": 50,
-        "native-country": "United-States",
+        "native-country": "United-States"
     })
 
     assert res.status_code == 200
@@ -69,7 +69,7 @@ def test_post_below(client):
         "capital-gain": 0,
         "capital-loss": 0,
         "hours-per-week": 45,
-        "native-country": "United-States",
+        "native-country": "United-States"
     })
 
     assert res.status_code == 200
