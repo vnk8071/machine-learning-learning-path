@@ -197,7 +197,8 @@ def get_training_inference_pipeline(args):
     pipe = Pipeline(
         steps=[
             ("preprocessor", preprocessor),
-            ("classifier", RandomForestClassifier(**model_config["random_forest"])),
+            ("classifier", RandomForestClassifier(
+                **model_config["random_forest"])),
         ]
     )
     return pipe, used_columns

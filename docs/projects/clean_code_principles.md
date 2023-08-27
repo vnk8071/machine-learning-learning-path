@@ -1,27 +1,59 @@
-# Machine Learning Project Template
+---
+sidebar_label: 'Clean Code Principles'
+sidebar_position: 1
+---
+
+# Predict Customer Churn with Clean Code
+
+[**Install**](#install) | [**Usage**](#usage) | [**Data**](#data) | [**EDA**](#eda) | [**Model**](#model) | [**Result**](#result) | [**Test**](#test) | [**Code Quality**](#code-quality) | [**Sequence Diagram**](#sequence-diagram)
 
 ## Project Description
-This is a template for machine learning projects. It is based on the course Machine Learning DevOps Engineer by Udacity.
+This is a project to implement best coding practices.
+```
+Source code: projects/clean_code
 
-[**Install**](#install) | [**Pre-commit**](#pre-commit) | [**Data**](#data) | [**EDA**](#eda) | [**Model**](#model) | [**Result**](#result) | [**Test**](#test) | [**Future Work**](#future-work)
+.
+├── README.md
+├── churn_library.py
+├── churn_script_logging_and_tests.py
+├── data
+│   └── bank_data.csv
+├── images
+│   ├── eda
+│   │   ├── churn_histogram.png
+│   │   ├── customer_age_histogram.png
+│   │   ├── heatmap.png
+│   │   ├── marital_status_counts.png
+│   │   └── total_transaction_histogram.png
+│   └── results
+│       ├── cv_feature_importance.png
+│       ├── lr_classification_report.png
+│       ├── lr_rf_roc_curves.png
+│       ├── lr_roc_curve.png
+│       └── rf_classification_report.png
+├── logs
+│   └── churn_library.log
+├── models
+│   ├── logistic_model.pkl
+│   └── rfc_model.pkl
+└── requirements.txt
+```
 
 ## Install
 ```bash
-make poetry-download
-make poetry-install
+pip install -r requirements.txt
 ```
 
-## Pre-commit
-Using pre-commit include autopep8 and pylint to check code before commiting and pushing to remote.
+## Usage
 ```bash
-make pre-commit
+python churn_library.py
 ```
 
 ## Data
 ```bash
 PATH = data/bank_data.csv
 
-Unnamed: 0  CLIENTNUM  ... Total_Ct_Chng_Q4_Q1  Avg_Utilization_Ratio
+       Unnamed: 0  CLIENTNUM  ... Total_Ct_Chng_Q4_Q1  Avg_Utilization_Ratio
 0               0  768805383  ...               1.625                  0.061
 1               1  818770008  ...               3.714                  0.105
 2               2  713982108  ...               2.333                  0.000
@@ -33,6 +65,9 @@ Unnamed: 0  CLIENTNUM  ... Total_Ct_Chng_Q4_Q1  Avg_Utilization_Ratio
 10124       10124  716506083  ...               0.818                  0.000
 10125       10125  717406983  ...               0.722                  0.000
 10126       10126  714337233  ...               0.649                  0.189
+[10127 rows x 22 columns]
+
+root - INFO - (10127, 22)
 
 Unnamed: 0                  0
 CLIENTNUM                   0
@@ -59,20 +94,25 @@ Avg_Utilization_Ratio       0
 ```
 
 ## EDA
+Execute the following function to run EDA.
+```bash
+perform_eda
+```
+
 ### Churn Histogram
-<img src="images/eda/churn_histogram.png">
+![churn_histogram](../../projects/clean_code/images/eda/churn_histogram.png)
 
 ### Customer Age Histogram
-<img src="images/eda/customer_age_histogram.png">
+![customer_age_histogram](../../projects/clean_code/images/eda/customer_age_histogram.png)
 
 ### Marital Status
-<img src="images/eda/marital_status_counts.png">
+![marital_status_counts](../../projects/clean_code/images/eda/marital_status_counts.png)
 
 ### Total Transaction Histogram
-<img src="images/eda/total_transaction_histogram.png">
+![total_transaction_histogram](../../projects/clean_code/images/eda/total_transaction_histogram.png)
 
 ### Heatmap
-<img src="images/eda/heatmap.png">
+![heatmap](../../projects/clean_code/images/eda/heatmap.png)
 
 ## Model
 ### Logistic Regression
@@ -111,6 +151,7 @@ train results
    macro avg       0.82      0.73      0.76      7088
 weighted avg       0.88      0.89      0.88      7088
 ```
+
 ### Random Forest
 ```
 test results
@@ -133,16 +174,18 @@ train results
    macro avg       1.00      1.00      1.00      7088
 weighted avg       1.00      1.00      1.00      7088
 ```
+
 ### ROC Curve
-<img src="images/results/lr_rf_roc_curves.png">
+![lr_rf_roc_curves](../../projects/clean_code/images/results/lr_rf_roc_curves.png)
 
 ## Feature Importance
-<img src="images/results/cv_feature_importance.png">
+![cv_feature_importance](../../projects/clean_code/images/results/cv_feature_importance.png)
 
 *For more details, please check the log folder.*
+
 ## Test
 ```bash
-make tests
+pytest --cov=src --cov-report=term-missing --cov-report=xml churn_script_logging_and_tests.py
 
 ================================= test session starts ==================================
 platform darwin -- Python 3.10.12, pytest-7.4.0, pluggy-1.2.0
@@ -160,9 +203,19 @@ churn_script_logging_and_tests.py::test_train_models
 ======================= 5 passed, 1 warning in 169.16s (0:02:49) =======================
 ```
 
-## Future Work
-- [ ] Add more models
-- [ ] Add more tests
-- [ ] Build docker
-- [ ] Monitoring
-- [ ] Deploy to production
+## Code Quality
+Style Guide - Format your refactored code using PEP 8 – Style Guide. Running the command below can assist with formatting. To assist with meeting pep 8 guidelines, use autopep8 via the command line commands below:
+```bash
+autopep8 --in-place --aggressive --aggressive churn_script_logging_and_tests.py
+autopep8 --in-place --aggressive --aggressive churn_library.py
+```
+
+Style Checking and Error Spotting - Use Pylint for the code analysis looking for programming errors, and scope for further refactoring. You should check the pylint score using the command below.
+```bash
+pylint churn_library.py
+pylint churn_script_logging_and_tests.py
+```
+Docstring - All functions and files should have document strings that correctly identifies the inputs, outputs, and purpose of the function. All files have a document string that identifies the purpose of the file, the author, and the date the file was created.
+
+## Sequence Diagram
+![sequence_diagram](https://video.udacity-data.com/topher/2022/March/62408b12_untitled/untitled.jpeg)

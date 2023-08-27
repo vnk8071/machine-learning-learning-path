@@ -24,14 +24,8 @@ Inspired by Machine Learning DevOps Engineer by Udacity.
 ## 2. Installation
 In order to run these components you need to have conda (Miniconda or Anaconda) and MLflow installed.
 ```bash
-conda env create -n ml-prod python=3.8
+conda env create -f environment.yml
 conda activate nyc_airbnb_dev
-pip install -r requirements.txt
-```
-or run with poetry
-```bash
-make poetry-download
-make install
 ```
 
 ## 3. Cookie cutter
