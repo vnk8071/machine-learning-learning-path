@@ -1,21 +1,22 @@
 ---
 sidebar_label: 'Build an ML Pipeline for Short-term Rental Prices in NYC'
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Build an ML Pipeline for Short-term Rental Prices in NYC
 
-[**Project Description**](#project_description) | [**Install**](#install) | [**Login to Wandb**](#login-to-wandb) | [**Data**](#data) | [**EDA**](#eda) | [**Model**](#model) | [**Result**](#result) | [**Test**](#test) | [**Code Quality**](#code-quality) | [**Sequence Diagram**](#sequence-diagram)
+[**Project Description**](#project-description) | [**Install**](#install) | [**Login to Wandb**](#login-to-wandb) | [**Cookiecutter**](#cookiecutter) | [**Hydra**](#hydra) | [**Pandas Profiling**](#pandas-profiling) | [**Release new version**](#release-new-version) | [**Step-by-step**](#step-by-step) | [**Public Wandb project**](#public-wandb-project) | [**Code Quality**](#code-quality)
 
 ## Project Description
-You are working for a property management company renting rooms and properties for short periods of time on various platforms. You need to estimate the typical price for a given property based on the price of similar properties. Your company receives new data in bulk every week. The model needs to be retrained with the same cadence, necessitating an end-to-end pipeline that can be reused.
-```
-Source code: projects/reproducible_model_workflow
-```
+Working for a property management company renting rooms and properties for short periods of time on various platforms. Need to estimate the typical price for a given property based on the price of similar properties. Your company receives new data in bulk every week. The model needs to be retrained with the same cadence, necessitating an end-to-end pipeline that can be reused.
+
+Source code: [vnk8071/reproducible_model_workflow](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/reproducible_model_workflow)
+
 
 ```bash
 tree projects/reproducible_model_workflow -I 'wandb|__pycache__'
-.
+
+projects/reproducible_model_workflow
 ├── MLproject
 ├── README.md
 ├── components
@@ -29,6 +30,16 @@ tree projects/reproducible_model_workflow -I 'wandb|__pycache__'
 
 25 directories, 56 files
 ```
+| # | Feature               | Stack             |
+|:-:|-----------------------|:-----------------:|
+| 0 | Language              | Python            |
+| 1 | Clean code principles | Autopep8, Pylint  |
+| 2 | Testing               | Pytest            |
+| 3 | Logging               | Logging           |
+| 4 | Configuration         | Hydra             |
+| 5 | Visualize dataframe   | Pandas Profiling  |
+| 6 | Pipeline & Monitoring | Mlflow            |
+| 7 | Experiment tracking   | Weights & Biases  |
 
 ## Install
 In order to run these components you need to have conda (Miniconda or Anaconda) and MLflow installed.
@@ -42,7 +53,7 @@ conda activate nyc_airbnb_dev
 wandb login
 ```
 
-## Cookie cutter
+## Cookiecutter
 Using this template you can quickly generate new steps to be used with MLFlow.
 ```bash
 cookiecutter cookiecutter-mlflow-template -o src
@@ -58,8 +69,26 @@ parameters [parameter1,parameter2]: parameter1,parameter2,parameter3
 ## Hydra
 As usual, the parameters controlling the pipeline are defined in the config.yaml file defined in the root of the starter kit. We will use Hydra to manage this configuration file. Open this file and get familiar with its content. Remember: this file is only read by the main.py script (i.e., the pipeline) and its content is available with the go function in main.py as the config dictionary. For example, the name of the project is contained in the project_name key under the main section in the configuration file. It can be accessed from the go function as config["main"]["project_name"].
 
-##
+## Pandas Profiling
+ydata-profiling primary goal is to provide a one-line Exploratory Data Analysis (EDA) experience in a consistent and fast solution. Like pandas df.describe() function, that is so handy, ydata-profiling delivers an extended analysis of a DataFrame while allowing the data analysis to be exported in different formats such as html and json.
+```python
+pip install ydata-profiling
+profile = ProfileReport(df, title="Profiling Report")
+profile.to_widgets()
+```
+
+## Release new version
+```bash
+git tag -a 1.0.1 -m "Release 1.0.1"
+git push origin 1.0.1
+```
+
 ## Step-by-step
+### 0. Full pipeline
+```bash
+mlflow run .
+```
+
 ### 1. Download data
 ```bash
 mlflow run . -P steps=download
@@ -167,7 +196,20 @@ test_data.py::test_row_count PASSED                               [100%]
 2023-08-21 22:09:05,298 Score: 0.6195968265496492
 2023-08-21 22:09:05,298 MAE: 31.64257699859779
 ```
-## Public W&B project
-```bash
+## Public Wandb project
 Link: https://wandb.ai/nguyenkhoi8071/nyc_airbnb/overview?workspace=user-nguyenkhoi8071
+
+Select best model
+![wandb-select-best](https://video.udacity-data.com/topher/2021/March/605103d6_wandb-select-best/wandb-select-best.gif)
+
+## Code Quality
+Style Guide - Format your refactored code using PEP 8 – Style Guide. Running the command below can assist with formatting. To assist with meeting pep 8 guidelines, use autopep8 via the command line commands below:
+```bash
+autopep8 --in-place --aggressive --aggressive .
 ```
+
+Style Checking and Error Spotting - Use Pylint for the code analysis looking for programming errors, and scope for further refactoring. You should check the pylint score using the command below.
+```bash
+pylint -rn -sn .
+```
+Docstring - All functions and files should have document strings that correctly identifies the inputs, outputs, and purpose of the function. All files have a document string that identifies the purpose of the file, the author, and the date the file was created.

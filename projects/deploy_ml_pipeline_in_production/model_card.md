@@ -25,7 +25,7 @@ Three metrics were used for model evaluation (performance on test set):
 * fbeta: 0.3826578699340245
 
 ## Ethical Considerations
-Since the dataset consists of public available data with highly aggregated census data no harmful unintended use of the data has to be adressed.
+Since the dataset consists of public available data with highly aggregated census data no harmful unintended use of the data has to be addressed.
 
 ## Caveats and Recommendations
 It would be meaningful to perform an hyperparameter optimization to improve the model performance.

@@ -7,8 +7,8 @@ Released Github Pages: https://khoivn.space/machine-learning-in-production/
 ## 1. Introduction
 Build a machine learning project in production. This repo contains the following features:
 
-| # | Feature | Stack |
-|---|-----------------------|:-----------------:|
+| # | Feature               | Stack             |
+|:-:|-----------------------|:-----------------:|
 | 0 | Language              | Python            |
 | 1 | Clean code principles | Autopep8, Pylint  |
 | 2 | Testing               | Pytest            |

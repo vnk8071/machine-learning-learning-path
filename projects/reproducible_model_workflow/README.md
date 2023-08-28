@@ -1,34 +1,43 @@
-# Machine Learning in Production
+# Build an ML Pipeline for Short-term Rental Prices in NYC
 
-## 1. Introduction
-Build machine learning project in production. This repo contains the following topics:
-- Clean code principles
-- Testing
-- Logging
-- Data versioning
-- Model versioning
-- CI/CD
-- Monitoring
+[**Project Description**](#project-description) | [**Install**](#install) | [**Login to Wandb**](#login-to-wandb) | [**Cookiecutter**](#cookiecutter) | [**Hydra**](#hydra) | [**Pandas Profiling**](#pandas-profiling) | [**Release new version**](#release-new-version) | [**Step-by-step**](#step-by-step) | [**Public Wandb project**](#public-wandb-project) | [**Code Quality**](#code-quality)
 
-Technologies stack used:
-- Language: Python
-- Lint and formatter: Autopep8, Pylint
-- Testing: Pytest
-- Pre-commit hooks: pre-commit
-- Configuration: Hydra
-- Model versioning: MLflow
-- Experiment tracking: Weights & Biases
+## Project Description
+Working for a property management company renting rooms and properties for short periods of time on various platforms. Need to estimate the typical price for a given property based on the price of similar properties. Your company receives new data in bulk every week. The model needs to be retrained with the same cadence, necessitating an end-to-end pipeline that can be reused.
+```
+Source code: projects/reproducible_model_workflow
+```
 
-Inspired by Machine Learning DevOps Engineer by Udacity.
+```bash
+tree projects/reproducible_model_workflow -I 'wandb|__pycache__'
+projects/reproducible_model_workflow
+├── MLproject
+├── README.md
+├── components
+├── conda.yml
+├── config.yaml
+├── cookiecutter-mlflow-template
+├── environment.yml
+├── images
+├── main.py
+└── src
 
-## 2. Installation
+25 directories, 56 files
+```
+
+## Install
 In order to run these components you need to have conda (Miniconda or Anaconda) and MLflow installed.
 ```bash
 conda env create -f environment.yml
 conda activate nyc_airbnb_dev
 ```
 
-## 3. Cookie cutter
+## Login to Wandb
+```bash
+wandb login
+```
+
+## Cookiecutter
 Using this template you can quickly generate new steps to be used with MLFlow.
 ```bash
 cookiecutter cookiecutter-mlflow-template -o src
@@ -41,21 +50,44 @@ long_description [An example of a step using MLflow and Weights & Biases]: Perfo
 parameters [parameter1,parameter2]: parameter1,parameter2,parameter3
 ```
 
-## 4. Step-by-step
-### 4.1. Download data
+## Hydra
+As usual, the parameters controlling the pipeline are defined in the config.yaml file defined in the root of the starter kit. We will use Hydra to manage this configuration file. Open this file and get familiar with its content. Remember: this file is only read by the main.py script (i.e., the pipeline) and its content is available with the go function in main.py as the config dictionary. For example, the name of the project is contained in the project_name key under the main section in the configuration file. It can be accessed from the go function as config["main"]["project_name"].
+
+## Pandas Profiling
+ydata-profiling primary goal is to provide a one-line Exploratory Data Analysis (EDA) experience in a consistent and fast solution. Like pandas df.describe() function, that is so handy, ydata-profiling delivers an extended analysis of a DataFrame while allowing the data analysis to be exported in different formats such as html and json.
+```python
+pip install ydata-profiling
+profile = ProfileReport(df, title="Profiling Report")
+profile.to_widgets()
+```
+
+## Release new version
+```bash
+git tag -a 1.0.1 -m "Release 1.0.1"
+git push origin 1.0.1
+```
+
+## Step-by-step
+### 0. Full pipeline
+```bash
+mlflow run .
+```
+
+### 1. Download data
 ```bash
 mlflow run . -P steps=download
 ```
 
-### 4.2. EDA
+### 2. EDA
 ```bash
 mlflow run src/eda
 ```
-More details in [![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F.svg?style=for-the-badge&logo=jupyter&logoColor=white)](src/eda/EDA.ipynb)
+More details in [![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F.svg?style=for-the-badge&logo=jupyter&logoColor=white)](projects/reproducible_model_workflow/src/eda/EDA.ipynb)
 
-<img src="images/EDA.png">
+![EDA](/projects/reproducible_model_workflow/images/EDA.png)
 
-### 4.3. Basic cleaning
+
+### 3. Basic cleaning
 ```bash
 mlflow run . -P steps=basic_cleaning
 ...
@@ -68,7 +100,7 @@ mlflow run . -P steps=basic_cleaning
 2023-08-20 22:17:49,743 Logging artifact
 ```
 
-### 4.4. Check data
+### 4. Check data
 ```bash
 mlflow run . -P steps=check_data
 ...
@@ -80,7 +112,7 @@ test_data.py::test_price_range PASSED                                         [ 
 test_data.py::test_row_count PASSED                                           [100%]
 ```
 
-### 4.5. Split data
+### 5. Split data
 ```bash
 mlflow run . -P steps=data_split
 ...
@@ -90,7 +122,7 @@ mlflow run . -P steps=data_split
 2023-08-21 19:13:31,353 Uploading test_data.csv dataset
 ```
 
-### 4.6. Train and evaluate model
+### 6. Train and evaluate model
 ```bash
 mlflow run . -P steps=train_random_forest
 ...
@@ -110,9 +142,9 @@ mlflow run . \
     -P steps=train_random_forest \
     -P hydra_options="modeling.random_forest.max_depth=10,50,100 modeling.random_forest.n_estimators=100,200,500 -m"
 ```
-<img src="images/optimize_hyper_parameters.png">
+![hyper_parameters](/projects/reproducible_model_workflow/images/optimize_hyper_parameters.png)
 
-### 4.7. Test model
+### 7. Test model
 ```bash
 mlflow run . -P steps=test_regression_model
 ...
@@ -123,7 +155,7 @@ mlflow run . -P steps=test_regression_model
 2023-08-21 20:52:32,341 MAE: 33.850181065122136
 ```
 
-### 4.8. Test model with new dataset
+### 8. Test model with new dataset
 ```
 mlflow run https://github.com/vnk8071/ml-production.git -v 1.0.1 -P hydra_options="etl.sample='sample2.csv'"
 ...
@@ -148,7 +180,20 @@ test_data.py::test_row_count PASSED                               [100%]
 2023-08-21 22:09:05,298 Score: 0.6195968265496492
 2023-08-21 22:09:05,298 MAE: 31.64257699859779
 ```
-## 5. Public W&B project
-```bash
+## Public Wandb project
 Link: https://wandb.ai/nguyenkhoi8071/nyc_airbnb/overview?workspace=user-nguyenkhoi8071
+
+Select best model
+![wandb-select-best](https://video.udacity-data.com/topher/2021/March/605103d6_wandb-select-best/wandb-select-best.gif)
+
+## Code Quality
+Style Guide - Format your refactored code using PEP 8 – Style Guide. Running the command below can assist with formatting. To assist with meeting pep 8 guidelines, use autopep8 via the command line commands below:
+```bash
+autopep8 --in-place --aggressive --aggressive .
 ```
+
+Style Checking and Error Spotting - Use Pylint for the code analysis looking for programming errors, and scope for further refactoring. You should check the pylint score using the command below.
+```bash
+pylint -rn -sn .
+```
+Docstring - All functions and files should have document strings that correctly identifies the inputs, outputs, and purpose of the function. All files have a document string that identifies the purpose of the file, the author, and the date the file was created.

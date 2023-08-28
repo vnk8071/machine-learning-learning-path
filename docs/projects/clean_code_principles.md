@@ -1,18 +1,19 @@
 ---
 sidebar_label: 'Clean Code Principles'
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Predict Customer Churn with Clean Code
 
-[**Install**](#install) | [**Usage**](#usage) | [**Data**](#data) | [**EDA**](#eda) | [**Model**](#model) | [**Result**](#result) | [**Test**](#test) | [**Code Quality**](#code-quality) | [**Sequence Diagram**](#sequence-diagram)
+[**Project Description**](#project-description) | [**Install**](#install) | [**Usage**](#usage) | [**Data**](#data) | [**EDA**](#eda) | [**Model**](#model) | [**Result**](#result) | [**Test**](#test) | [**Code Quality**](#code-quality) | [**Sequence Diagram**](#sequence-diagram)
 
 ## Project Description
 This is a project to implement best coding practices.
-```
-Source code: projects/clean_code
 
-.
+Source code: [vnk8071/clean_code](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/clean_code)
+
+```bash
+projects/clean_code
 ├── README.md
 ├── churn_library.py
 ├── churn_script_logging_and_tests.py
@@ -38,6 +39,13 @@ Source code: projects/clean_code
 │   └── rfc_model.pkl
 └── requirements.txt
 ```
+
+| # | Feature               | Stack             |
+|:-:|-----------------------|:-----------------:|
+| 0 | Language              | Python            |
+| 1 | Clean code principles | Autopep8, Pylint  |
+| 2 | Testing               | Pytest            |
+| 3 | Logging               | Logging           |
 
 ## Install
 ```bash

@@ -19,6 +19,12 @@ _steps = [
 
 @hydra.main(config_name='config')
 def go(config: DictConfig):
+    """
+    Main function to execute the steps of the pipeline
+
+    Params:
+        config (DictConfig): Configuration object created by Hydra
+    """
 
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
     os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
@@ -45,8 +51,10 @@ def go(config: DictConfig):
 
         if "basic_cleaning" in active_steps:
             _ = mlflow.run(
-                uri=os.path.join(hydra.utils.get_original_cwd(),
-                                 "src", "basic_cleaning"),
+                uri=os.path.join(
+                    hydra.utils.get_original_cwd(),
+                    "src",
+                    "basic_cleaning"),
                 entry_point="main",
                 parameters={
                     "input_artifact": "sample.csv:latest",
@@ -54,8 +62,7 @@ def go(config: DictConfig):
                     "output_type": "clean_sample",
                     "output_description": "Data with outliers and null values removed",
                     "min_price": config['etl']['min_price'],
-                    "max_price": config['etl']['max_price']
-                },
+                    "max_price": config['etl']['max_price']},
             )
 
         if "data_check" in active_steps:
@@ -80,8 +87,7 @@ def go(config: DictConfig):
                     "input": "clean_sample.csv:latest",
                     "test_size": config['modeling']['test_size'],
                     "stratify_by": config['modeling']['stratify_by'],
-                    "random_seed": config['modeling']['random_seed']
-                },
+                    "random_seed": config['modeling']['random_seed']},
             )
 
         if "train_random_forest" in active_steps:
@@ -91,8 +97,10 @@ def go(config: DictConfig):
                     dict(config["modeling"]["random_forest"].items()), fp)
 
             _ = mlflow.run(
-                uri=os.path.join(hydra.utils.get_original_cwd(),
-                                 "src", "train_random_forest"),
+                uri=os.path.join(
+                    hydra.utils.get_original_cwd(),
+                    "src",
+                    "train_random_forest"),
                 entry_point="main",
                 parameters={
                     "trainval_artifact": "trainval_data.csv:latest",

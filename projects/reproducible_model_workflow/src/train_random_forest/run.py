@@ -38,16 +38,29 @@ def delta_date_feature(dates):
     between each date and the most recent date in its column
     """
     date_sanitized = pd.DataFrame(dates).apply(pd.to_datetime)
-    return date_sanitized.apply(lambda d: (d.max() - d).dt.days, axis=0).to_numpy()
+    return date_sanitized.apply(
+        lambda d: (
+            d.max() - d).dt.days,
+        axis=0).to_numpy()
 
 
 def plot_feature_importance(pipe, feat_names):
-    feat_imp = pipe["random_forest"].feature_importances_[: len(feat_names)-1]
+    """
+    Given a pipeline and the list of feature names, it plots the feature importance
+
+    Args:
+        pipe (sklearn.pipeline.Pipeline): Pipeline containing the trained random forest
+        feat_names (list): List of feature names
+
+    Returns:
+        matplotlib.figure.Figure: Figure containing the plot
+    """
+    feat_imp = pipe["random_forest"].feature_importances_[
+        : len(feat_names) - 1]
     nlp_importance = sum(pipe["random_forest"].feature_importances_[
                          len(feat_names) - 1:])
     feat_imp = np.append(feat_imp, nlp_importance)
     fig_feat_imp, sub_feat_imp = plt.subplots(figsize=(10, 10))
-    # idx = np.argsort(feat_imp)[::-1]
     sub_feat_imp.bar(
         range(feat_imp.shape[0]), feat_imp, color="r", align="center")
     _ = sub_feat_imp.set_xticks(range(feat_imp.shape[0]))
@@ -57,6 +70,18 @@ def plot_feature_importance(pipe, feat_names):
 
 
 def get_inference_pipeline(rf_config, max_tfidf_features):
+    """
+    Given the configuration for the random forest and the maximum number of words to consider for the TFIDF,
+    it returns the sklearn pipeline to be used for inference
+
+    Args:
+        rf_config (dict): Configuration for the random forest
+        max_tfidf_features (int): Maximum number of words to consider for the TFIDF
+
+    Returns:
+        sklearn.pipeline.Pipeline: Pipeline to be used for inference
+        list: List of processed features
+    """
     # Let's handle the categorical features first
     # Ordinal categorical are categorical values for which the order is meaningful, for example
     # for room type: 'Entire home/apt' > 'Private room' > 'Shared room'
@@ -129,7 +154,12 @@ def get_inference_pipeline(rf_config, max_tfidf_features):
 
 
 def go(args):
+    """
+    Script to train a random forest
 
+    Args:
+        args (argparse.Namespace): Command line arguments
+    """
     run = wandb.init(job_type="train_random_forest")
     run.config.update(args)
 
@@ -202,21 +232,17 @@ def go(args):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description="Basic cleaning of dataset")
-
     parser.add_argument(
         "--trainval_artifact",
         type=str,
         help="Artifact containing the training dataset. It will be split into train and validation"
     )
-
     parser.add_argument(
         "--val_size",
         type=float,
         help="Size of the validation split. Fraction of the dataset, or number of items",
     )
-
     parser.add_argument(
         "--random_seed",
         type=int,
@@ -224,7 +250,6 @@ if __name__ == "__main__":
         default=42,
         required=False,
     )
-
     parser.add_argument(
         "--stratify_by",
         type=str,
@@ -232,28 +257,23 @@ if __name__ == "__main__":
         default="none",
         required=False,
     )
-
     parser.add_argument(
         "--rf_config",
         help="Random forest configuration. A JSON dict that will be passed to the "
         "scikit-learn constructor for RandomForestRegressor.",
         default="{}",
     )
-
     parser.add_argument(
         "--max_tfidf_features",
         help="Maximum number of words to consider for the TFIDF",
         default=10,
         type=int
     )
-
     parser.add_argument(
         "--output_artifact",
         type=str,
         help="Name for the output serialized model",
         required=True,
     )
-
     args = parser.parse_args()
-
     go(args)

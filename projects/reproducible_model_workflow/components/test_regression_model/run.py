@@ -17,7 +17,12 @@ logger = logging.getLogger()
 
 
 def go(args):
+    """
+    Script to test the provided model against the test dataset
 
+    Args:
+        args (argparse.Namespace): Command line arguments
+    """
     run = wandb.init(job_type="test_model")
     run.config.update(args)
 
@@ -49,24 +54,19 @@ def go(args):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(
         description="Test the provided model against the test dataset")
-
     parser.add_argument(
         "--mlflow_model",
         type=str,
         help="Input MLFlow model",
         required=True
     )
-
     parser.add_argument(
         "--test_dataset",
         type=str,
         help="Test dataset",
         required=True
     )
-
     args = parser.parse_args()
-
     go(args)

@@ -1,0 +1,1 @@
+*/10 * * * * /Users/macos/projects/Kelvin/ML_DevOps_Engineer/nd0821-c4-KhoiVN1/fullprocess.py

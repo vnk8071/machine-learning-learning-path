@@ -1,6 +1,5 @@
 import logging
 import requests
-import pandas as pd
 import pickle
 
 

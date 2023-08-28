@@ -16,7 +16,12 @@ logger = logging.getLogger()
 
 
 def go(args):
+    """
+    Script to clean the data
 
+    Params:
+        args (argparse.Namespace): Command line arguments
+    """
     run = wandb.init(job_type="basic_cleaning")
     run.config.update(args)
 

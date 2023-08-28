@@ -240,7 +240,7 @@ def test_inference(data):
     """
 
     _, test_df = train_test_split(data, test_size=0.20)
-    [encoder, lb, lr_model] = pickle.load(open("model/model.pkl", "rb"))
+    [encoder, lb, lr_model] = pickle.load(open("model/lr_model.pkl", "rb"))
 
     X_test, y_test, _, _ = process_data(
         X=test_df,
@@ -261,7 +261,7 @@ def test_output_metrics(data):
     """
 
     _, test_df = train_test_split(data, test_size=0.20)
-    [encoder, lb, lr_model] = pickle.load(open("model/model.pkl", "rb"))
+    [encoder, lb, lr_model] = pickle.load(open("model/lr_model.pkl", "rb"))
 
     X_test, y_test, _, _ = process_data(
         X=test_df,
