@@ -5,7 +5,7 @@ sidebar_position: 5
 
 # Project: A Dynamic Risk Assessment System
 
-[**Project Description**](#project-description) | [**Installation**](#installation) | [**Workspace**](#workspace) | [**Step-by-steps**](#step-by-steps)
+[**Project Description**](#project-description) | [**Installation**](#installation) | [**Workspace**](#workspace) | [**Step-by-steps**](#step-by-steps) | [**Code Quality**](#code-quality)
 
 ## Project Description
 The company needs you to create, deploy, and monitor a risk assessment ML model that will estimate the attrition risk of each of the company's 10,000 clients. If the model you create and deploy is accurate, it will enable the client managers to contact the clients with the highest risk and avoid losing clients and revenue.
@@ -180,3 +180,16 @@ python fullprocess.py
 ```
 ![confusion_matrix2](../../projects/ml_model_scoring_and_monitoring/models/confusionmatrix2.png)
 ![full_process](https://video.udacity-data.com/topher/2021/March/603d1ba7_fullprocess/fullprocess.jpg)
+
+
+## Code Quality
+Style Guide - Format your refactored code using PEP 8 – Style Guide. Running the command below can assist with formatting. To assist with meeting pep 8 guidelines, use autopep8 via the command line commands below:
+```bash
+autopep8 --in-place --aggressive --aggressive .
+```
+
+Style Checking and Error Spotting - Use Pylint for the code analysis looking for programming errors, and scope for further refactoring. You should check the pylint score using the command below.
+```bash
+pylint -rn -sn .
+```
+Docstring - All functions and files should have document strings that correctly identifies the inputs, outputs, and purpose of the function. All files have a document string that identifies the purpose of the file, the author, and the date the file was created.

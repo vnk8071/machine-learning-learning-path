@@ -192,7 +192,9 @@ python inference.py
 
 
 ## Model Card
-Details in [model_card](../../projects/deploy_ml_pipeline_in_production/model_card.md)
+```
+Details in projects/deploy_ml_pipeline_in_production/model_card.md
+```
 
 ## Code Quality
 Style Guide - Format your refactored code using PEP 8 – Style Guide. Running the command below can assist with formatting. To assist with meeting pep 8 guidelines, use autopep8 via the command line commands below:
