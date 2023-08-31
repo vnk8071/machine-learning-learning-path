@@ -1,50 +1,85 @@
-# Machine Learning in Production
+# Build an ML Pipeline for Short-term Rental Prices in NYC
 
-## 1. Introduction
-Build machine learning project in production. This repo contains the following topics:
-- Clean code principles
-- Testing
-- Logging
-- Data versioning
-- Model versioning
-- CI/CD
-- Monitoring
+[**Project Description**](#project-description) | [**Install**](#install) | [**Data**](#data) | [**Train model**](#train-model) | [**Run sanity checks**](#run-sanity-checks) | [**Run tests**](#run-tests) | [**CI/CD**](#cicd) | [**Dockerize**](#dockerize)  | [**Request API**](#request-api) | [**Model Card**](#model-card) | [**Code Quality**](#code-quality)
 
-Technologies stack used:
-- Language: Python
-- Lint and formatter: Autopep8, Pylint
-- Testing: Pytest
-- Pre-commit hooks: pre-commit
-- Configuration: Hydra
-- Model versioning: MLflow
-- Experiment tracking: Weights & Biases
+## Project Description
+Apply the skills acquired in this course to develop a classification model on publicly available Census Bureau data. You will create unit tests to monitor the model performance on various data slices. Then, you will deploy your model using the FastAPI package and create API tests. The slice validation and the API tests will be incorporated into a CI/CD framework using GitHub Actions.
 
-Inspired by Machine Learning DevOps Engineer by Udacity.
+Source code: [vnk8071/deploy_ml_pipeline_in_production](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/deploy_ml_pipeline_in_production)
 
 
-## 2. Installation
-### 2.1. Create virtual environment
 ```bash
-make poetry-download
-make install
+tree projects/deploy_ml_pipeline_in_production -I __pycache__
+
+projects/deploy_ml_pipeline_in_production
+├── EDA.ipynb
+├── README.md
+├── data
+│   ├── census.csv
+│   ├── census.csv.dvc
+│   ├── census_clean.csv
+│   └── census_clean.csv.dvc
+├── images
+│   ├── continuous_deployment.png
+│   ├── continuous_integration.png
+│   ├── live_get.png
+│   ├── live_post.png
+│   ├── local_post.png
+│   └── settings_continuous_deployment.png
+├── inference.py
+├── main.py
+├── model
+│   └── model.pkl
+├── model_card.md
+├── module
+│   ├── data.py
+│   ├── model.py
+│   └── train_model.py
+├── requirements.txt
+├── sanitycheck.py
+├── slice_output.txt
+└── tests
+    ├── test_api.py
+    └── test_model.py
+
+6 directories, 24 files
+```
+| # | Feature               | Stack             |
+|:-:|-----------------------|:-----------------:|
+| 0 | Language              | Python            |
+| 1 | Clean code principles | Autopep8, Pylint  |
+| 2 | Testing               | Pytest            |
+| 3 | Logging               | Logging           |
+| 4 | Data versioning       | DVC               |
+| 5 | Model versioning      | DVC               |
+| 6 | Configuration         | Hydra             |
+| 7 | Development API       | FastAPI           |
+| 8 | Dockerize             | Docker            |
+| 9 | Cloud computing       | Render            |
+| 10| CI/CD                 | Github Actions    |
+
+
+## Install
+```bash
+pip install -r requirements.txt
 ```
 
-### 2.2. Install pre-commit hooks
-```bash
-make pre-commit-install
+## Hydra
+```python
+@hydra.main(config_path=".", config_name="config", version_base="1.2")
 ```
 
-## 3. Data
-### 3.1. Download data
+## Data
+### 1. Download data
 ```bash
 data/census.csv
 ```
 Link: https://archive.ics.uci.edu/ml/datasets/census+income
 
-### 3.2. EDA
-EDA in notebook: [![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F.svg?style=for-the-badge&logo=jupyter&logoColor=white)](EDA.ipynb)
+### 2. EDA
+EDA in notebook: [![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F.svg?style=for-the-badge&logo=jupyter&logoColor=white)](../../projects/deploy_ml_pipeline_in_production/EDA.ipynb)
 
-### 3.3. Data versioning
+### 3. Data versioning
 ```bash
 dvc init
 mkdir ../local_remote
@@ -56,9 +91,9 @@ git commit -m "Add data"
 dvc push
 ```
 
-## 4. Train Model
+## Train model
 ```bash
-python module/train_model.py
+python train.py
 ```
 Result
 ```
@@ -74,7 +109,8 @@ Result
 2023-08-25 20:32:57,074 - INFO - >>>Recall: 0.24934383202099739
 2023-08-25 20:32:57,075 - INFO - >>>Fbeta: 0.36121673003802285
 2023-08-25 20:32:57,075 - INFO - Calculating model metrics on slices data...
-2023-08-25 20:32:58,281 - INFO - >>>Metrics with slices data:             feature  ...                    category
+2023-08-25 20:32:58,281 - INFO - >>>Metrics with slices data:
+            feature  ...                    category
 0         workclass  ...                     Private
 1         workclass  ...                           ?
 2         workclass  ...                 Federal-gov
@@ -90,7 +126,7 @@ Result
 [101 rows x 5 columns]
 ```
 
-## 5. Run sanity checks
+## Run sanity checks
 ```bash
 python sanity_checks.py
 ```
@@ -102,7 +138,7 @@ Result
 2023-08-24 23:16:57,951 - INFO - You should still check your work against the rubric to ensure you meet the criteria.
 ```
 
-## 6. Run tests
+## Run tests
 ```bash
 pytest tests/
 ```
@@ -113,30 +149,56 @@ tests/test_model.py ........                                                   [
 =========================== 12 passed, 4 warnings in 3.65s ===========================
 ```
 
-## 7. CI/CD
-### 7.1. Github Actions
-<img src="images/continuous_integration.png">
+## Dockerize
+```
+docker build -t deploy_ml_pipeline_in_production .
+docker run -p 5000:5000 deploy_ml_pipeline_in_production
+```
 
-### 7.2. CD with Render
+## CI/CD
+### 1. Github Actions
+![github_acontinuous_integrationctions](../../projects/deploy_ml_pipeline_in_production/images/continuous_integration.png)
+
+### 2. CD with Render
 Settings continuous deployment on Render
-<img src="images/settings_continuous_deployment.png">
-Deployed app
-<img src="images/continuous_deployment.png">
+![settings_continuous_deployment](../../projects/deploy_ml_pipeline_in_production/images/settings_continuous_deployment.png)
 
-## 8. Request API
-### 8.1. Local
+Deployed app
+![continuous_deployment](../../projects/deploy_ml_pipeline_in_production/images/continuous_deployment.png)
+
+
+## Request API
+### 1. Local
 ```bash
 uvicorn module.api:app --reload
 ```
 Result
-<img src="images/local_post.png">
+![local_post](../../projects/deploy_ml_pipeline_in_production/images/local_post.png)
 
-### 8.2. Render
+### 2. Render
 Check API get method at: https://vnk8071-api-deployment.onrender.com/docs
-<img src=images/live_get.png>
+![live_get](../../projects/deploy_ml_pipeline_in_production/images/live_get.png)
 
 Script to request API method POST
 ```bash
 python inference.py
 ```
-<img src="images/live_post.png">
+![live_post](../../projects/deploy_ml_pipeline_in_production/images/live_post.png)
+
+
+## Model Card
+```
+Details in projects/deploy_ml_pipeline_in_production/model_card.md
+```
+
+## Code Quality
+Style Guide - Format your refactored code using PEP 8 – Style Guide. Running the command below can assist with formatting. To assist with meeting pep 8 guidelines, use autopep8 via the command line commands below:
+```bash
+autopep8 --in-place --aggressive --aggressive .
+```
+
+Style Checking and Error Spotting - Use Pylint for the code analysis looking for programming errors, and scope for further refactoring. You should check the pylint score using the command below.
+```bash
+pylint -rn -sn .
+```
+Docstring - All functions and files should have document strings that correctly identifies the inputs, outputs, and purpose of the function. All files have a document string that identifies the purpose of the file, the author, and the date the file was created.

@@ -1,10 +1,19 @@
-#
+
+# Project: A Dynamic Risk Assessment System
+
+[**Project Description**](#project-description) | [**Installation**](#installation) | [**Workspace**](#workspace) | [**Step-by-steps**](#step-by-steps) | [**Code Quality**](#code-quality)
 
 ## Project Description
-Source code:
+The company needs you to create, deploy, and monitor a risk assessment ML model that will estimate the attrition risk of each of the company's 10,000 clients. If the model you create and deploy is accurate, it will enable the client managers to contact the clients with the highest risk and avoid losing clients and revenue.
+
+Creating and deploying the model isn't the end of your work, though. Your industry is dynamic and constantly changing, and a model that was created a year or a month ago might not still be accurate today. Because of this, you need to set up regular monitoring of your model to ensure that it remains accurate and up-to-date. You'll set up processes and scripts to re-train, re-deploy, monitor, and report on your ML model, so that your company can get risk assessments that are as accurate as possible and minimize client attrition.
+
+Source code: [vnk8071/ml_model_scoring_and_monitoring](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/ml_model_scoring_and_monitoring)
 
 ```bash
-.
+tree projects/ml_scoring_monitoring -I '__pycache__'
+
+projects/ml_scoring_monitoring
 ├── README.md
 ├── apicalls.py
 ├── app.py
@@ -23,13 +32,11 @@ Source code:
 │   ├── confusionmatrix2.png
 │   ├── latestscore.txt
 │   └── trainedmodel.pkl
-├── models.png
 ├── practicedata
 │   ├── dataset1.csv
 │   └── dataset2.csv
 ├── practicemodels
 │   ├── apireturns.txt
-│   ├── apireturns2.txt
 │   ├── confusionmatrix.png
 │   ├── latestscore.txt
 │   └── trainedmodel.pkl
@@ -49,14 +56,23 @@ Source code:
 └── wsgi.py
 ```
 
+| # | Feature               | Stack             |
+|:-:|-----------------------|:-----------------:|
+| 0 | Language              | Python            |
+| 1 | Clean code principles | Autopep8, Pylint  |
+| 2 | Testing               | Pytest            |
+| 3 | Logging               | Logging           |
+| 4 | Auto trigger          | Cronjob           |
+
 ## Installation
 ```bash
+pip install -r requirements.txt
 ```
 
 ## Workspace
 ```bash
 /practicedata/. This is a directory that contains some data you can use for practice.
-/sourcedata/. This is a directory that contains data that you'll load to train your models.
+/sourcedata/. This is a directory that contains data that youll load to train your models.
 /ingesteddata/. This is a directory that will contain the compiled datasets after your ingestion script.
 /testdata/. This directory contains data you can use for testing your models.
 /models/. This is a directory that will contain ML models that you create for production.
@@ -69,6 +85,8 @@ Source code:
 ```bash
 python ingestion.py
 ```
+- Writing the dataset
+- Recording ingested files
 
 ### Step 2: Training, scoring, and deploying
 ```bash
@@ -76,6 +94,7 @@ python training.py
 python scoring.py
 python deployment.py
 ```
+Training and Scoring an ML model is important because ML models are only worth deploying if they've been trained, and we're always interested in re-training in the hope that we can improve our model accuracy. Re-training and scoring, as we'll do in this step, are crucial so we can get the highest possible model accuracy.
 
 ### Step 3: Diagnostics
 ```bash
@@ -91,13 +110,16 @@ python diagnostics.py
 ```bash
 python reporting.py
 ```
-![confusion_matrix](./practicemodels/confusionmatrix.png)
+Model reporting is important because reporting allows us as data scientists to be aware of all aspects of our data, our model, and our training processes, as well as their performance. Also, automated reporting enables us to keep stakeholders and leaders quickly and reliably informed about our ML efforts.
+
+![confusion_matrix](../../projects/ml_model_scoring_and_monitoring/practicemodels/confusionmatrix.png)
 
 ### Step 5: API Setup and Request
 ```bash
 python app.py
 python apicalls.py
 ```
+Easily access ML diagnostics and results. Your API needs to have four endpoints: one for model predictions, one for model scoring, one for summary statistics, and one for other diagnostics.
 
 ### Step 6: Full Process
 Make cronjob to run full process every 10 minutes
@@ -150,5 +172,18 @@ python fullprocess.py
 2023-08-28 22:18:19,651 - __main__ - INFO - Re-deploying
 2023-08-28 22:18:19,652 - deployment - INFO - All files saved at /Users/macos/projects/Kelvin/ML_DevOps_Engineer/nd0821-c4-KhoiVN1/production_deployment
 ```
-![confusion_matrix2](./models/confusionmatrix2.png)
+![confusion_matrix2](../../projects/ml_model_scoring_and_monitoring/models/confusionmatrix2.png)
 ![full_process](https://video.udacity-data.com/topher/2021/March/603d1ba7_fullprocess/fullprocess.jpg)
+
+
+## Code Quality
+Style Guide - Format your refactored code using PEP 8 – Style Guide. Running the command below can assist with formatting. To assist with meeting pep 8 guidelines, use autopep8 via the command line commands below:
+```bash
+autopep8 --in-place --aggressive --aggressive .
+```
+
+Style Checking and Error Spotting - Use Pylint for the code analysis looking for programming errors, and scope for further refactoring. You should check the pylint score using the command below.
+```bash
+pylint -rn -sn .
+```
+Docstring - All functions and files should have document strings that correctly identifies the inputs, outputs, and purpose of the function. All files have a document string that identifies the purpose of the file, the author, and the date the file was created.

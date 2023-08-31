@@ -36,13 +36,11 @@ projects/ml_scoring_monitoring
 │   ├── confusionmatrix2.png
 │   ├── latestscore.txt
 │   └── trainedmodel.pkl
-├── models.png
 ├── practicedata
 │   ├── dataset1.csv
 │   └── dataset2.csv
 ├── practicemodels
 │   ├── apireturns.txt
-│   ├── apireturns2.txt
 │   ├── confusionmatrix.png
 │   ├── latestscore.txt
 │   └── trainedmodel.pkl
