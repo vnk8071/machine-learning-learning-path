@@ -6,6 +6,27 @@ In this project, students will apply the knowledge and methods they learned in t
 ## Data
 Link Kaggle: https://www.kaggle.com/competitions/bike-sharing-demand/data
 
+## EDA
+![feature_hist](images/feature_hist.png)
+
+## Feature Engineering
+![feature_engineering_hist](images/feature_engineering_hist.png)
+
+### Create new features
+```python
+train["ratio_atemp_temp"] = train["atemp"]/train["temp"]
+train["multiple_humidity_windspeed"] = train["humidity"]*train["windspeed"]
+train['month'] = pd.to_datetime(train['datetime']).dt.month
+train['day'] = pd.to_datetime(train['datetime']).dt.day
+train['hour'] = pd.to_datetime(train['datetime']).dt.hour
+```
+
+### Make some columns to category
+```python
+train["season"] = train["season"].astype("category")
+train["weather"] = train["weather"].astype("category")
+```
+
 ## Train with AutoGluon
 ```python
 predictor = TabularPredictor(label=label, eval_metric="root_mean_squared_error").fit(train.drop(["casual", "registered"], axis=1), time_limit=600, presets="best_quality")
@@ -48,6 +69,8 @@ Types of models trained:
  11       KNeighborsUnif -109.739422       0.049793         2.574461
 ```
 
+Best model:
+![compare_model_score](images/compare_model_score.png)
 ## Evaluation
 ```bash
 predictions = predictor.predict(test)
@@ -56,7 +79,7 @@ predictions = predictor.predict(test)
 ## Submission
 ```bash
 submission["count"] = predictions
-submission.to_csv("submission.csv", index=False)
+submission.to_csv("submission/submission.csv", index=False)
 ```
 
 ### First submission
@@ -86,16 +109,27 @@ submission_new_features.csv  2023-08-31 16:12:31  new features                  
 submission.csv               2023-08-31 15:29:03  first raw submission               complete  1.80095      1.80095
 ```
 
+### Fourth submission
+
+```bash
+fileName                     date                 description                            status    publicScore  privateScore
+---------------------------  -------------------  -------------------------------------  --------  -----------  ------------
+submission_new_hpo.csv       2023-09-01 05:49:19  new features with new hyperparameters  complete  0.62304      0.62304
+submission_new_hpo.csv       2023-08-31 16:32:51  new features with hyperparameters      complete  0.52606      0.52606
+submission_new_features.csv  2023-08-31 16:12:31  new features                           complete  0.63184      0.63184
+submission.csv               2023-08-31 15:29:03  first raw submission                   complete  1.80095      1.80095
+```
+
 ## Notebook
 Pipeline: [![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F.svg?style=for-the-badge&logo=jupyter&logoColor=white)](../../projects/predict_bike_sharing_demand/project-KhoiVN.ipynb)
 
 Export to HTML: project-KhoiVN.html
 
 ## Plot report
-Train score:
+### Train score
 ![model_train_score](images/model_train_score.png)
 
-Test score:
+### Test score
 ![model_test_score](images/model_test_score.png)
 
 ## Report project

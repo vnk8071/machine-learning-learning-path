@@ -31,11 +31,11 @@ I will spend time featuring data like split numeric into group, and maybe explor
 
 ### Create a line plot showing the top model score for the three (or more) training runs during the project.
 
-![model_train_score.png](model_train_score.png)
+![model_train_score.png](images/model_train_score.png)
 
 ### Create a line plot showing the top kaggle score for the three (or more) prediction submissions during the project.
 
-![model_test_score.png](model_test_score.png)
+![model_test_score.png](images/model_test_score.png)
 
 ## Summary
-This is a pipeline of Machine Learning project. We need focus on feature engineering and finetune models to have best score.
+This is a pipeline of Machine Learning project. We need focus on feature engineering and finetune models to have best score. Then we must deep dive into AutoGluon to understand how it works and how to use it effectively. Finally, submit the best score to Kaggle and get the result.
