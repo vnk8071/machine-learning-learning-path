@@ -1,47 +1,18 @@
-# Machine Learning in Production
+# Stroke Prediction
 
-[**Introduction**](#1-introduction) | [**Workflow**](#2-workflow) | [**Installation**](#3-installation) | [**Contact**](#contact)
+## Domain Background
 
-Released Github Pages: https://khoivn.space/machine-learning-in-production/
+According to the World Health Organization (WHO) stroke is the 2nd leading cause of death globally, responsible for approximately 11% of total deaths. It will be good if we detect and prevent this deadly disease in time, it will bring happiness to the sick and have more time to live.
 
-## 1. Introduction
-Build a machine learning project in production. This repo contains the following features:
+## Problem Statement
 
-| # | Feature               | Stack             |
-|:-:|-----------------------|:-----------------:|
-| 0 | Language              | Python            |
-| 1 | Clean code principles | Autopep8, Pylint  |
-| 2 | Testing               | Pytest            |
-| 3 | Logging               | Logging           |
-| 4 | Data versioning       | DVC               |
-| 5 | Model versioning      | DVC               |
-| 6 | Configuration         | Hydra             |
-| 7 | Pipeline & Monitoring | Mlflow            |
-| 8 | Experiment tracking   | Weights & Biases  |
-| 9 | CI/CD                 | Github Actions    |
-| 10| Github Pages          | Docusaurus        |
+Currently, classification methods using machine learning and deep learning have become popular to assist doctors in diagnosing stroke and providing timely treatment. Here, we use two models of machine learning to predict stroke based on the input parameters like gender, age, various diseases, and smoking status. The challenge of working with imbalanced datasets is that most machine learning techniques will ignore, and in turn have poor performance on, the minority class, although typically it is performance on the minority class that is most important.
 
-Inspired by Machine Learning DevOps Engineer by Udacity.
 
-Noted course: [Google drive](https://docs.google.com/document/d/1AnAgK40kud97YgnJrbMrQCO08XKDO0Zz8J6u3xR17_Q/edit?usp=sharing)
-
-## 2. Workflow
-
-## 3. Installation
-### 3.1. Create virtual environment
-```bash
-pip install -r requirements.txt
-```
-
-### 3.2. Install pre-commit hooks
-```bash
-make pre-commit-install
-```
-
-## 4. Dataset
+## Datasets and Inputs
 
 In this project, we will use the dataset provided by [Kaggle](https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset)
-![Activity dataset](images/activity-dataset.png)
+![Activity dataset](../images/activity-dataset.png)
 
 This dataset is used to predict whether a patient is likely to get stroke based on the input parameters like gender, age, various diseases, and smoking status. Each row in the data provides relavant information about the patient.
 
@@ -60,7 +31,56 @@ This dataset is used to predict whether a patient is likely to get stroke based 
 |11| smoking_status    | "formerly smoked", "never smoked", "smokes" or "Unknown"* |
 |12| stroke    | 1 if the patient had a stroke or 0 if not|
 
-## EDA
+## Proposed Solution
+
+To solve this problem facing category data and imbalanced data, I used the following methods:
+- Label encoding [1] for category data. Then using StandardScaler [2] to scale the data.
+- Synthetic Minority Oversampling Technique [3], or SMOTE was used for data augmentation for the minority class. Compared two methods (logistic regression and light GBM) to four other machine learning models.
+
+[1] https://towardsdatascience.com/categorical-encoding-using-label-encoding-and-one-hot-encoder-911ef77fb5bd
+
+[2] https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html
+
+[3] https://machinelearningmastery.com/smote-oversampling-for-imbalanced-classification/
+
+
+## Benchmark Model
+
+The provided dataset contains 5111 rows and 12 columns. The dataset is imbalanced, with only 4.9% of the rows belonging to the positive class. The dataset is split into 80% training and 20% testing. The benchmark model is a logistic regression model with the default hyperparameter which has the accuracy between 70 and 80%.
+
+
+## Evaluation Metrics
+
+We will evaluate our model based on two metrics: the area under the curve (AUC) value and accuracy with all rows of dataset, hence, it can be used by both patients and doctors to prescreen for possible stroke.
+
+$$ Accuracy = \frac{\text{TP} + \text{FN}}{\text{TP} + \text{FN} + \text{FP} + \text{TN}} $$
+
+$$ True Positve Rate = \frac{\text{TP}}{\text{TP} + \text{FN}} $$
+
+$$ False Positive Rate = \frac{\text{FP}}{\text{FP} + \text{TN}} $$
+
+$$ AUC = \int_{0}^{1} \text{TPR}(fpr) \, d\text{FPR}(fpr) $$
+
+## Project Design
+
+This project involves several steps that require an iterative process. The Data Science Project Lifecycle, which has been adapted to our project, is shown in the figure below.
+
+### 1. Business and Data Understanding
+During the development of this project proposal, we have gained a better understanding of the business. However, we currently have only a basic understanding of the dataset. Therefore, we need to conduct more exploratory analysis to determine: 1) the data distribution, 2) the necessary data cleaning and preprocessing steps, and 3) potential features to be extracted.
+
+### 2. Data Preparation
+Based on the findings from the exploratory data analysis, we will create standalone scripts to clean and preprocess the datasets.
+
+### 3. Feature Engineering
+The preprocessed dataset from the previous step will be used as input for the feature engineering step. Here, we will extract relevant information that we deem useful for the prediction model.
+
+### 4. Model Training, Validation, and Evaluation
+To properly evaluate the model, we will split the dataset into the train, validation, and test sets. The validation set can be used to tune the hyperparameters of the model so that we can obtain an unbiased estimation of the model's performance on the test set. As previously mentioned, the model will be evaluated based on its accuracy and AUC score.
+
+As we progress through the project, we will iterate through each of these steps multiple times. For example, we may need to revisit the feature engineering step if we are unable to achieve better model performance after tuning the models.
+
+## Solution implementation
+### EDA
 Details in `explore_data_analysis/EDA.ipynb`
 - Check type each column of dataset
 ```
@@ -102,40 +122,40 @@ dtype: int64
 
 - The dataset is imbalanced, with only 4.9% of the rows belonging to the positive class.
 
-![plot_stroke](images/plot_stroke.png)
+![plot_stroke](../images/plot_stroke.png)
 
 
 - Histogram of numeric columns
 
-![plot_hist](images/plot_hist_num.png)
+![plot_hist](../images/plot_hist_num.png)
 -> `bmi` and `avg_glucose_level` are skewed
 -> `age` is normal distribution
 
 - Value counts of category columns
 
-![plot_work_type](images/plot_work_type.png)
+![plot_work_type](../images/plot_work_type.png)
 
 -> Stroke patients are mostly private workers
 
-![plot_smoking_status](images/plot_smoking_status.png)
+![plot_smoking_status](../images/plot_smoking_status.png)
 
 -> Stroke patients are equally distributed in smoking status
 
 - Correlation with binary columns
 
-![plot_heart_disease](images/plot_heart_disease.png)
+![plot_heart_disease](../images/plot_heart_disease.png)
 
-![plot_residence_type](images/plot_residence_type.png)
+![plot_residence_type](../images/plot_residence_type.png)
 
-![plot_hypertension](images/plot_hypertension.png)
+![plot_hypertension](../images/plot_hypertension.png)
 
 - Correlation matrix
 
-![correlation](images/correlation.png)
+![correlation](../images/correlation.png)
 
-## Data Preprocessing
+### Data Preprocessing
 Details in `extract_transform_load/pipeline.py`
-### Extract
+#### Extract
 - Read csv file
 - Extract metadata
 
@@ -143,24 +163,24 @@ Details in `extract_transform_load/pipeline.py`
 2023-09-23 20:20:44,678 - extract_transform_load.extract - INFO - Metadata: {'file_path': 'data/healthcare-dataset-stroke-data.csv', 'shape': (5110, 12), 'columns': ['id', 'gender', 'age', 'hypertension', 'heart_disease', 'ever_married', 'work_type', 'Residence_type', 'avg_glucose_level', 'bmi', 'smoking_status', 'stroke'], 'dtypes': {'id': dtype('int64'), 'gender': dtype('O'), 'age': dtype('float64'), 'hypertension': dtype('int64'), 'heart_disease': dtype('int64'), 'ever_married': dtype('O'), 'work_type': dtype('O'), 'Residence_type': dtype('O'), 'avg_glucose_level': dtype('float64'), 'bmi': dtype('float64'), 'smoking_status': dtype('O'), 'stroke': dtype('int64')}, 'category_columns': [], 'numeric_columns': ['id', 'age', 'hypertension', 'heart_disease', 'avg_glucose_level', 'bmi', 'stroke']}
 ```
 
-### Transform
+#### Transform
 - Fill missing values in `bmi` column with mean
 - Drop rows with `Other` in `gender` column
 - Drop `id` column
 - Reformatting type of `age` column to int64
 
-### Load
+#### Load
 - Strategy: split stroke data into train and test sets with test size of 0.2 and split non-stroke data into train and test sets with test size of 0.05
 - Save train and test sets to csv files
 
-![test_strategy](images/test_strategy.png)
+![test_strategy](../images/test_strategy.png)
 
 The current ratio of stroke is `17.06%` in test set
 
-## Feature Engineering
+### Feature Engineering
 Details in `feature_engineering/pipeline.py`
 
-### Standardlize
+#### Standardlize
 - Label encoding for category columns
 - Standardizing numeric columns
 ```
@@ -170,12 +190,12 @@ Details in `feature_engineering/pipeline.py`
 2023-09-23 20:24:31,087 - feature_engineering.standardlize - INFO - Label encoding ['gender', 'ever_married', 'work_type', 'Residence_type', 'smoking_status']
 ```
 
-### SMOTE
+#### SMOTE
 - Balancing data with target class stroke in train set
 
-![smote](images/smote.png)
+![smote](../images/smote.png)
 
-### Feature Selection
+#### Feature Selection
 ```python
 from sklearn.feature_selection import RFE
 selected_feature_count = int(
@@ -197,14 +217,14 @@ Result
 2023-09-23 20:24:35,888 - __main__ - INFO - Pipeline completed
 ```
 
-## Hyperparameter Tuning
+### Hyperparameter Tuning
 Using SageMaker Hyperparameter Tuning to find best hyperparameters for Random Forest model
-![rf-hp-tuning](images/rf-hp-tuning.png)
+![rf-hp-tuning](../images/rf-hp-tuning.png)
 
 Details in `training/sagemaker-hyperparameter-tuning.ipynb`
 
-## Model Training
-### Logistic Regression
+### Model Training
+#### Logistic Regression
 ```python
 from sklearn.linear_model import LogisticRegression
 
@@ -244,7 +264,7 @@ weighted avg       0.86      0.79      0.81       293
  [ 10  40]]
 ```
 
-### Random Forest
+#### Random Forest
 ```python
 from sklearn.ensemble import RandomForestClassifier
 
@@ -284,7 +304,7 @@ weighted avg       0.85      0.78      0.80       293
  [ 12  38]]
 ```
 
-### LightGBM
+#### LightGBM
 ```python
 from lightgbm import LGBMClassifier
 
@@ -325,7 +345,7 @@ weighted avg       0.84      0.71      0.74       293
  [ 10  40]]
 ```
 
-### XGBoost
+#### XGBoost
 ```python
 from xgboost import XGBClassifier
 
@@ -366,18 +386,18 @@ weighted avg       0.85      0.72      0.76       293
  [  8  42]]
 ```
 
-## Evaluation metrics
+### Evaluation metrics
 - Confusion matrix with raw data
 
-![confusion_matrix](images/cm_raw.png)
+![confusion_matrix](../images/cm_raw.png)
 
 - Confusion matrix with feature engineering + SMOTE + feature selection
 
-![confusion_matrix](images/cm_feature_engineering.png)
+![confusion_matrix](../images/cm_feature_engineering.png)
 
 - Accuracy-F1-AUC
 
-![evaluation_metrics](images/result.png)
+![evaluation_metrics](../images/result.png)
 
 Explanation:
 - With raw data, the model is overfitting and skewed to negative class (not stroke) and get the same result (accuracy, F1 score, AUC) with benchmark models.
@@ -385,18 +405,18 @@ Explanation:
 - In hyperparameter tuning, we can see that the Random Forest model increase the result than default hyperparameter.
 - We just have 293 rows in test set, so the result is not stable, we need more data to get better result. We can see that the result of Logistic Regression model is better than other models, but in production with large data, I think we will choose Random Forest model to deploy.
 
-## API
+### API
 Using FastAPI to create API for inference.
 
 Details in `api/inference.py`
-![request_ui](images/request_ui.png)
+![request_ui](../images/request_ui.png)
 
-## Test API
+### Test API
 Using pytest to test API.
 
 Details in `tests/test_api.py`
 
-![test_api](images/test_api.png)
+![test_api](../images/test_api.png)
 
 ## Conclusion
 - The dataset is imbalanced, with only 4.9% of the rows belonging to the positive class.
