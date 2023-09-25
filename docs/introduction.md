@@ -21,9 +21,9 @@ Build a machine learning project in production. This repo contains the following
 | 9 | CI/CD                 | Github Actions    |
 | 10| Github Pages          | Docusaurus        |
 
-Inspired by Machine Learning DevOps Engineer by Udacity.
+Inspired by Machine Learning Engineer & Machine Learning DevOps Engineer by Udacity.
 
-Noted course: [Google drive](https://docs.google.com/document/d/1AnAgK40kud97YgnJrbMrQCO08XKDO0Zz8J6u3xR17_Q/edit?usp=sharing)
+Noted course: [Google drive](https://drive.google.com/drive/folders/1Y6Or5U399MrGJBZRVrKwX2YfBPScoMYK?usp=sharing)
 
 ## 2. Installation
 ### 2.1. Create virtual environment
