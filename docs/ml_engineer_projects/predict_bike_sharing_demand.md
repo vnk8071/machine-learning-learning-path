@@ -138,4 +138,4 @@ Export to HTML: project-KhoiVN.html
 ![model_test_score](../../projects/predict_bike_sharing_demand/images/model_test_score.png)
 
 ## Report project
-Details in [report-project.md](../../projects/predict_bike_sharing_demand/report-project.md)
+Details in projects/predict_bike_sharing_demand/report-project.md
