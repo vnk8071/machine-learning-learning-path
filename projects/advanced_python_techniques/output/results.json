@@ -1,0 +1,57 @@
+[
+  {
+    "datetime_utc": "2020-04-29 09:56",
+    "distance_au": 0.042048495605758,
+    "velocity_km_s": 8.70158478774505,
+    "neo": {
+      "designation": "52768",
+      "name": null,
+      "diameter_km": 1.75,
+      "potentially_hazardous": true
+    }
+  },
+  {
+    "datetime_utc": "2020-06-06 03:20",
+    "distance_au": 0.0340481350294297,
+    "velocity_km_s": 11.1461841682533,
+    "neo": {
+      "designation": "163348",
+      "name": null,
+      "diameter_km": 0.735,
+      "potentially_hazardous": true
+    }
+  },
+  {
+    "datetime_utc": "2020-07-14 11:12",
+    "distance_au": 0.0869025682664901,
+    "velocity_km_s": 9.81706925297989,
+    "neo": {
+      "designation": "480936",
+      "name": null,
+      "diameter_km": 0.537,
+      "potentially_hazardous": true
+    }
+  },
+  {
+    "datetime_utc": "2020-07-23 23:09",
+    "distance_au": 0.0546899072934384,
+    "velocity_km_s": 7.64359989644057,
+    "neo": {
+      "designation": "8014",
+      "name": null,
+      "diameter_km": 0.7,
+      "potentially_hazardous": true
+    }
+  },
+  {
+    "datetime_utc": "2020-11-29 05:08",
+    "distance_au": 0.0287618678984483,
+    "velocity_km_s": 25.0726387403463,
+    "neo": {
+      "designation": "153201",
+      "name": null,
+      "diameter_km": 0.51,
+      "potentially_hazardous": true
+    }
+  }
+]
