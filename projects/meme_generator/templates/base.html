@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                height: 100vh;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                background: #F5FCFE;
+            }
+
+            .nav {
+                display: inline;
+                padding: 60px;
+            }
+
+            img {
+                border: 1px solid rgba(0,0,0,.125);
+                border-radius: .25rem;
+                }
+        </style>
+    </head>
+    <body>
+        <h1>Meme Generator by KhoiVN</h1>
+
+        {% block body %}{% endblock %}
+
+        <div class="nav">
+            <a class="btn btn-primary" href="{{url_for('meme_rand')}}">Random</a>
+            <a class="btn btn-outline-primary" href="{{url_for('meme_form')}}">Creator</a>
+        </div>
+    </body>
+</html>
