@@ -27,7 +27,18 @@ pip install -r requirements.txt
 
 ### Lint and Format
 ```bash
-flake8 .
+flake8 . --max-line-length=120 --verbose
+```
+
+Result
+```
+flake8.checker            MainProcess    129 INFO     Making checkers
+flake8.main.application   MainProcess    676 INFO     Finished running
+flake8.main.application   MainProcess    676 INFO     Reporting errors
+flake8.main.application   MainProcess    677 INFO     Found a total of 23 violations and reported 0
+```
+
+```bash
 autopep8 --in-place --aggressive --aggressive *.py
 ```
 
