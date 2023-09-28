@@ -43,7 +43,7 @@ class IngestorPDF(IngestorInterface):
 
         quotes_list = []
         outfile = f'{tempfile.gettempdir()}/{get_current_timestamp()}.txt'
-        subprocess.run(['pdftotext', '-table', path, outfile])
+        subprocess.run(['pdftotext', path, outfile])
 
         fp = open(outfile, 'r')
 
