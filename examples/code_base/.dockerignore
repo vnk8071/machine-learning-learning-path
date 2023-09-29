@@ -1,0 +1,5 @@
+.venv
+.github
+.git
+.pytest_cache
+Dockerfile

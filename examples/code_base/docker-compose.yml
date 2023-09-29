@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  backend:
+    container_name: backend_v0
+    image: backend:v0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - cache:/data
+    networks:
+      - app-network
+    restart: always
+
+  redis:
+    container_name: redis_v0
+    image: redis:6.2-alpine
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - cache:/data
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+
+volumes:
+  cache:
+    driver: local
