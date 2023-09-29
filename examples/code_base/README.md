@@ -20,7 +20,6 @@ The structure of this code base is as follows:
 ├── api
 │   ├── __init__.py
 │   └── app.py
-├── backend
 ├── core
 │   ├── __init__.py
 │   ├── config.py
