@@ -1,7 +1,13 @@
 # Python Code Based
 
 ## 1. Introduction
-This is a code base for python. It contains some useful functions and classes.
+- This is a code base for python. It contains some useful functions and classes.
+
+- Using `@property`, `@classmethod` and `@staticmethod` to create properties, class methods and static methods.
+
+- Structure repository in production.
+
+Link repo: https://github.com/vnk8071/machine-learning-in-production/tree/main/examples/code_base
 
 ## 2. Technical Details
 ### 2.1. Structure
