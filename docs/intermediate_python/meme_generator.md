@@ -8,6 +8,8 @@ sidebar_position: 3
 ## Overview
 This project is a meme generator. It takes a random image from a folder and a random quote from a file and combines them into a meme. The meme is then saved to a folder and the path to the meme is returned.
 
+Source code: [vnk8071/meme_generator](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/meme_generator)
+
 ## Technologies
 | # | Name | Description |
 | --- | --- | --- |

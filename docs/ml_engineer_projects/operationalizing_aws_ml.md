@@ -9,6 +9,8 @@ By improving and preparing an image classification project for production-grade 
 
 Link Write-up: https://docs.google.com/document/d/1HbFQ48U6uNV3GFZIxSJeFGaTAeVe7g3ZcDJo26vgWKo/edit?usp=sharing
 
+Source code: [vnk8071/operationalizing_aws_ml](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/operationalizing_aws_ml)
+
 ## Bucket S3
 ### Create bucket
 ![bucket_s3](../../projects/operationalizing_aws_ml/images/bucket_s3.png)

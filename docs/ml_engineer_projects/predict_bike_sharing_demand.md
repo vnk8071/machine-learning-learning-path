@@ -8,6 +8,8 @@ sidebar_position: 2
 ## Overview
 In this project, students will apply the knowledge and methods they learned in the Introduction to Machine Learning course to compete in a Kaggle competition using the AutoGluon library. The goal of this project is to predict the total count of bikes rented during each hour covered by the test set, using only information available prior to the rental period.
 
+Source code: [vnk8071/predict_bike_sharing_demand](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/predict_bike_sharing_demand)
+
 ## Data
 Link Kaggle: https://www.kaggle.com/competitions/bike-sharing-demand/data
 

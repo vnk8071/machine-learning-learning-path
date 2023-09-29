@@ -8,6 +8,8 @@ sidebar_position: 3
 ## Overview
 In this project, using AWS Sagemaker to build an image classification model that can tell bicycles apart from motorcycles. You'll deploy your model, use AWS Lambda functions to build supporting services, and AWS Step Functions to compose your model and services into an event-driven application. At the end of this project, you will have created a portfolio-ready demo that showcases your ability to build and compose scalable, ML-enabled, AWS applications.
 
+Source code: [vnk8071/ml_workflow_for_scones_unlimited](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/ml_workflow_for_scones_unlimited)
+
 ## Data
 Link CIFAR100: https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz
 

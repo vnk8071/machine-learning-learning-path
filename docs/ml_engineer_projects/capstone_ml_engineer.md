@@ -5,6 +5,8 @@ sidebar_position: 6
 
 # Stroke Prediction Capstone
 
+Source code: [vnk8071/capstone_ml_engineer](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/capstone_ml_engineer)
+
 ## Domain Background
 
 According to the World Health Organization (WHO) stroke is the 2nd leading cause of death globally, responsible for approximately 11% of total deaths. It will be good if we detect and prevent this deadly disease in time, it will bring happiness to the sick and have more time to live.
