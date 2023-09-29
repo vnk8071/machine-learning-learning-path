@@ -53,8 +53,8 @@ class MemeGenerator:
 
         resized_img = img.resize(
             size=(
-                width,
-                width / img.width * img.height
+                int(width),
+                int(width / img.width * img.height)
             )
         )
         quote = f"{text} - {author}".encode(encoding='latin-1',
@@ -63,8 +63,8 @@ class MemeGenerator:
 
         draw_img = ImageDraw.Draw(im=resized_img)
         text_position = (
-            random.randint(0, resized_img.width * 0.75),
-            random.randint(0, resized_img.height * 0.75)
+            random.randint(0, int(resized_img.width * 0.75)),
+            random.randint(0, int(resized_img.height * 0.75))
         )
         draw_img.text(
             xy=text_position,
