@@ -1,6 +1,6 @@
 ---
 sidebar_label: 'Code Base'
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Python Code Based
@@ -12,7 +12,7 @@ sidebar_position: 1
 
 - Structure repository in production.
 
-Link repo: https://github.com/vnk8071/machine-learning-in-production/tree/main/examples/code_base
+Source code: [vnk8071/code_base](https://github.com/vnk8071/machine-learning-in-production/tree/main/examples/code_base)
 
 
 ## 2. Technical Details
