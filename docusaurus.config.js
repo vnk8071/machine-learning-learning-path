@@ -39,6 +39,19 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          breadcrumbs: true,
+          editLocalizedFiles: false,
+          editCurrentVersion: false,
+          routeBasePath: 'docs',
+          include: ['**/*.md', '**/*.mdx'],
+          exclude: [
+            '**/_*.{js,jsx,ts,tsx,md,mdx}',
+            '**/_*/**',
+            '**/*.test.{js,jsx,ts,tsx}',
+            '**/__tests__/**',
+          ],
+          editUrl: ({versionDocsDirPath, docPath}) =>
+            `https://github.com/vnk8071/machine-learning-in-production/tree/main/${versionDocsDirPath}/${docPath}`,
         },
         blog: {
           showReadingTime: true,

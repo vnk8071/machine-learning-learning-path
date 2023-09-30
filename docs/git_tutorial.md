@@ -7,6 +7,21 @@ sidebar_position: 3
 
 Source code: [vnk8071/git_tutorial](https://github.com/vnk8071/machine-learning-in-production/tree/main/examples/git_tutorial)
 
+## Overview
+Version control is a system that records changes to a file or set of files over time so that you can recall specific versions later. It allows you to revert files or project to a previous version, track modifications and modifying individuals, and compare changes. It is essential for the integrity of the project and the people working on it.
+
+And last but not least, 80% of the time we're just going to use about 20% of the available git commands.
+
+## Configuration
+```git
+git config --global user.name "name"
+git config --global user.email "email"
+```
+
+## Workflow
+![git_workflow](https://nvie.com/img/git-model@2x.png)
+@source: [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
+
 ## Commands and definitions
 | # | Command | Definition |
 | --- | --- | --- |
@@ -59,6 +74,34 @@ Follow the instructions in `flow.py`:
 
 Check remote branches:
 ![basic_flow_push_origin](../examples/git_tutorial/images/basic_flow_push_origin.png)
+
+## Common workflow patterns
+### Single branch workflow
+- Use a single branch for all changes.
+- Use tags to mark important commits.
+![single_branch](../examples/git_tutorial/images/single_branch.png)
+
+| # | Benefits | Drawbacks |
+| --- | --- | --- |
+| 1 | It is simple. | It is not recommended to use in remote branches. |
+| 2 | It is easy to resolve conflicts. | It is not recommended to use in large projects. |
+| 3 | It is easy to revert a commit. | It is not recommended to use in colaborating with others. |
+
+![single_branch_workflow](https://nvie.com/img/merge-without-ff@2x.png)
+@source: [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/#incorporating-a-finished-feature-on-develop)
+### Branch based development workflow
+- The master/main is never committed to directly.
+- New features are developed in separate branches, and then if colaborating with others, merged could be approved by pull request into the master/main branch.
+
+![branch_based_development](https://assets-global.website-files.com/614e240a0e0b0fa20bb1471d/620d3663177c7557e33ff4fe_Blog-Trunk-Based-Dev.jpg)
+@source: [Trunk Based Development](https://devcycle.com/blog/transitioning-to-trunk-based-development)
+
+| # | Benefits | Drawbacks |
+| --- | --- | --- |
+| 1 | It is easy to revert a commit. | It is harder to resolve conflicts. |
+| 2 | It is easy to review changes. | It is not recommended to use in local branches. |
+| 3 | It is easy to collaborate with others. | Need dedicated time to review changes. |
+
 
 ## Back in time
 ### Revert
@@ -196,6 +239,29 @@ or
 git stash apply
 ```
 
+Example:
+```git
+git checkout main
+git pull
+```
+
+Then raise a bug and fix it.
+```git
+error: Your local changes to the following files would be overwritten by pull:
+    README.md
+Please commit your changes or stash them before you pull.
+Aborting
+```
+
+In this case, we can stash changes and pull latest changes from remote repository.
+```git
+git stash save
+git pull
+```
+
+Then we can apply stashed changes to working directory.
+```git
+
 ## Rebase
 Similar to merge, but rebase reapply commits on top of another base tip.
 ```git
@@ -224,3 +290,10 @@ git rebase -i HEAD~<number_of_commits>
 ```
 
 **Note**: Not recommended to use in remote branches when colaborating with others.
+
+## Less used commands
+| # | Command | Definition |
+| --- | --- | --- |
+| 1 | `git rename <old_name> <new_name>` | Rename a file |
+| 2 | `git remote rename <old_name> <new_name>` | Rename a remote |
+| 3 | `git restore --staged <file_name>` | Unstage a file |
