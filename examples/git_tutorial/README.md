@@ -290,3 +290,118 @@ git rebase -i HEAD~<number_of_commits>
 | 1 | `git rename <old_name> <new_name>` | Rename a file |
 | 2 | `git remote rename <old_name> <new_name>` | Rename a remote |
 | 3 | `git restore --staged <file_name>` | Unstage a file |
+
+## Use cases
+### Git merge vs rebase
+```
+git merge feature main
+```
+This creates a new “merge commit” in the feature branch that ties together the histories of both branches, giving you a branch structure that looks like this:
+
+![git_merge_feature](https://wac-cdn.atlassian.com/dam/jcr:4639eeb8-e417-434a-a3f8-a972277fc66a/02%20Merging%20main%20into%20the%20feature%20branh.svg?cdnVersion=1240)
+
+```git
+git checkout feature
+git rebase main
+```
+
+This moves the entire feature branch to begin on the tip of the main branch, effectively incorporating all of the new commits in main. But, instead of using a merge commit, rebasing re-writes the project history by creating brand new commits for each commit in the original branch.
+
+![git_rebase_feature](https://wac-cdn.atlassian.com/dam/jcr:3bafddf5-fd55-4320-9310-3d28f4fca3af/03%20Rebasing%20the%20feature%20branch%20into%20main.svg?cdnVersion=1240)
+
+or we can interactive rebase:
+```git
+git checkout feature
+git rebase -i main
+```
+
+```
+pick 33d5b7a Message for commit #1
+fixup 9480b3d Message for commit #2
+pick 5c67e61 Message for commit #3
+```
+![git_rebase_feature_interactive](https://wac-cdn.atlassian.com/dam/jcr:a712e238-6cb9-4c8c-8ef7-1975dca49be3/04%20Squashing%20a%20commit%20with%20an%20interactive%20rebase.svg?cdnVersion=1240)
+
+Finally, the feature branch has all of the commits from main and a nice, clean history:
+```git
+git checkout feature
+git rebase -i main
+git checkout main
+git merge feature
+```
+![git_merge_feature_main](https://wac-cdn.atlassian.com/dam/jcr:412813ee-381f-42f6-8b43-79760d2da0dc/08-10%20Integrating%20a%20feature%20into%20master%20with%20and%20without%20a%20rebase.svg?cdnVersion=1240)
+
+@source: [Git merge vs rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+
+### Git reset vs revert
+```git
+git checkout hotfix
+git reset HEAD~2
+```
+The two commits that were on the end of hotfix are now dangling, or orphaned commits. This means they will be deleted the next time Git performs a garbage collection. In other words, you’re saying that you want to throw away these commits. This can be visualized as the following:
+![git_reset_hotfix](https://wac-cdn.atlassian.com/dam/jcr:e8a43261-2460-4783-9731-1197dc8959ab/03-04%20Reset%20a%20specific%20commit.png?cdnVersion=1240)
+
+```git
+git checkout hotfix
+git revert HEAD~2
+```
+Reverting undoes a commit by creating a new commit. This is a safe way to undo changes, as it has no chance of re-writing the commit history.
+This can be visualized as the following:
+
+![git_revert_hotfix](https://wac-cdn.atlassian.com/dam/jcr:f02c67ca-d7b8-47f8-98f8-e0017dc9f7c5/08-09%20Undo%20public%20commits.svg?cdnVersion=1240)
+
+@source: [Git reset vs revert](https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting)
+
+## Git hooks
+Git hooks are scripts that Git executes before or after events such as: commit, push, and receive. Git hooks are a built-in feature - no need to download anything. Git hooks are run locally.
+
+Install `pre-commit`:
+```bash
+pip install pre-commit
+brew install pre-commit
+conda install -c conda-forge pre-commit
+```
+
+Then run `pre-commit install` to install the git hook scripts into `.git/hooks/`:
+```bash
+pre-commit install
+```
+
+### Pre-commit hook
+Add the following to `.pre-commit-config.yaml`:
+```yaml
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-case-conflict
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: requirements-txt-fixer
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: 'v2.0.2'
+    hooks:
+      - id: autopep8
+        args: [--in-place, --aggressive, --aggressive, --recursive]
+```
+
+Auto enable pre-commit hook:
+```bash
+$ git config --global init.templateDir ~/.git-template
+$ pre-commit init-templatedir ~/.git-template
+```
+
+When we commit, the pre-commit hook will run:
+```bash
+git add .
+git commit -m "ADD latest git tutorial and ADD edit page"
+```
+
+![pre_commit](images/pre_commit.png)
+
+@source: [Git pre-commit hooks](https://pre-commit.com/#advanced)
+
+## Future work
+- Practice make perfect.
+- So far so good.
