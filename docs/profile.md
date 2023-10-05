@@ -7,7 +7,7 @@ sidebar_position: 0
 
 # Information
 - Full name: Vo Nguyen Khoi
-- Day of birth: 08/17/2000
+- Day of birth: August 17, 2000
 - Sex: Male
 - Work: Senior Student
 - Major: Biomedical Engineering - GPA: 3.28/4.0 (<a href="https://drive.google.com/file/d/1thrAWfrN9SXiw5wQgKi7Us6tVpIwUPp4/view?usp=sharing">PDF</a>)
@@ -32,11 +32,11 @@ I am a Junior AI Engineer.
 A Biomedical Engineering student with a passion for Computer Vision in the medical field. All the time, I just researched the knowledge related to that field by self-study, so I didn't get a thorough instruction. However, I know how to find a solution, and I will solve it anyway.
 
 Current workplace:
-- Graduated Student of Biomedical Engineering in International University - Vietnam National University HCMC.
+- Graduated Biomedical Engineering in International University - Vietnam National University HCMC.
 - AI Engineer full-time at FPT Software (AI Valley).
 - Machine Learning Engineer part-time at A2DS Inc.
 
-Professional summary
+Professional summary:
 
 - Understanding of Machine Learning and Deep Learning.
 - Domain Expertise in the field of Computer Vision in Medical Industry.

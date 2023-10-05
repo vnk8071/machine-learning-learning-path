@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Machine Learning in Production',
   tagline: '',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/site-logo.ico',
 
   // Set the production url of your site here
   url: 'https://khoivn.space/',
