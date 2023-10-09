@@ -5,6 +5,8 @@ sidebar_position: 4
 
 # Coffee Shop Full Stack
 
+Source code: [vnk8071/identity_access_management](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/identity_access_management)
+
 ## Full Stack Nano - IAM Final Project
 
 Udacity has decided to open a new digitally enabled cafe for students to order drinks, socialize, and study hard. But they need help setting up their menu experience.
