@@ -38,7 +38,11 @@ container to AWS Elastic Kubernetes Service using the CI/CD pipeline.
 
 ### Source code: [vnk8071/server_deployment_containerization](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/server_deployment_containerization)
 
+### Template: [vnk8071/pipeline-deploy-kubernetes-on-aws](https://github.com/vnk8071/pipeline-deploy-kubernetes-on-aws)
+
 ## Full Stack Capstone
 You will now combine all of the new skills you’ve learned and developed in this course to construct a database-backed web API with user access control. You will choose what app to build and then you’ll design and build out all of the API endpoints needed for the application and properly secure them for use in any front end application (web or mobile).
 
-### Capstone [Casting Agency](https://learn.udacity.com/nanodegrees/nd0044/parts/cd2200/lessons/60e3bf46-bc2a-49e2-b1f1-cf66b7adca2c/concepts/2f15e760-ff4d-49ac-b026-0988d50b5aac)
+### Capstone [Coffee Shop Fullstack](https://learn.udacity.com/nanodegrees/nd0044/parts/cd2200/lessons/60e3bf46-bc2a-49e2-b1f1-cf66b7adca2c/concepts/2f15e760-ff4d-49ac-b026-0988d50b5aac)
+
+### Source code: [vnk8071/capstone_fullstack_web](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/capstone_fullstack_web)
