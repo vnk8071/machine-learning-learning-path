@@ -78,7 +78,7 @@ const config = {
           {
             href: 'https://github.com/vnk8071/machine-learning-in-production',
             label: 'GitHub',
-            position: 'right',
+            position: 'left',
           },
         ],
       },
