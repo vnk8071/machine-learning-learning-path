@@ -1,3 +1,7 @@
+---
+sidebar_label: 'Overview'
+sidebar_position: 1
+---
 # Machine Learning Learning Path Udacity
 
 [**Introduction**](#1-introduction) | [**Learning Path**](#2-learning-path) | [**Prerequisites**](#3-Prerequisites) | [**Nanodegree**](#4-nanodegree) | [**Contact**](#5-contact)

@@ -6,15 +6,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Machine Learning in Production',
+  title: 'Machine Learning Learning Path',
   tagline: '',
   favicon: 'img/site-logo.ico',
 
   // Set the production url of your site here
-  url: 'https://khoivn.space/',
+  url: 'https://khoispace.io.vn/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/machine-learning-in-production/',
+  baseUrl: '/machine-learning-learning-path/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -51,7 +51,7 @@ const config = {
             '**/__tests__/**',
           ],
           editUrl: ({versionDocsDirPath, docPath}) =>
-            `https://github.com/vnk8071/machine-learning-in-production/tree/main/${versionDocsDirPath}/${docPath}`,
+            `https://github.com/vnk8071/machine-learning-learning-path/tree/main/${versionDocsDirPath}/${docPath}`,
         },
         blog: {
           showReadingTime: true,
@@ -76,7 +76,7 @@ const config = {
             label: 'Docs',
           },
           {
-            href: 'https://github.com/vnk8071/machine-learning-in-production',
+            href: 'https://github.com/vnk8071/machine-learning-learning-path',
             label: 'GitHub',
             position: 'left',
           },
@@ -90,7 +90,7 @@ const config = {
             items: [
               {
                 label: 'Docs',
-                to: '/docs/introduction',
+                to: '/docs/overview',
               },
             ],
           },
@@ -116,7 +116,7 @@ const config = {
               },
               {
                 label: 'Website',
-                href: 'https://khoivn.space/',
+                href: 'https://khoispace.io.vn/',
               },
             ],
           },
