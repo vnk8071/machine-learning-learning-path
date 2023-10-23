@@ -6,7 +6,7 @@ sidebar_position: 1
 
 [**Introduction**](#1-introduction) | [**Learning Path**](#2-learning-path) | [**Prerequisites**](#3-Prerequisites) | [**Nanodegree**](#4-nanodegree) | [**Contact**](#5-contact)
 
-Released Github Pages: https://khoivn.space/machine-learning-in-production/
+Released Github Pages: https://khoispace.io.vn/machine-learning-learning-path/
 
 ## 1. Introduction
 Udacity is a for-profit educational organization which offering massive open online courses (MOOCs). This platform has many courses in many fields such as Data Science, Machine Learning, Deep Learning, Artificial Intelligence, etc. Udacity has many nanodegrees which are a series of courses in a specific field.
@@ -162,6 +162,6 @@ container to AWS Elastic Kubernetes Service using the CI/CD pipeline.
 
 ## 5.Contact
 - Gmail: [nguyenkhoi8071@gmail.com](mailto:nguyenkhoi8071@gmail.com)
-- Website: [khoivn.space](https://khoivn.space/)
+- Website: [khoispace.io.vn](https://khoispace.io.vn/)
 - LinkedIn: [linkedin.com/in/khoivn8071](https://www.linkedin.com/in/khoivn8071/)
 - Github: [github.com/vnk8071](https://github.com/vnk8071)
