@@ -7,7 +7,8 @@ dependencies:
   - seaborn=0.12.2
   - pandas=2.0.3
   - pip=23.2.1
-  - pandas-profiling=2.11.0
+  - ydata-profiling==0.0.dev0
   - pyarrow=12.0.1
+  - ipywidgets==8.1.1
   - pip:
       - wandb==0.15.8

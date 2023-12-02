@@ -84,7 +84,7 @@ mlflow run src/eda
 ```
 More details in [![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F.svg?style=for-the-badge&logo=jupyter&logoColor=white)](projects/reproducible_model_workflow/src/eda/EDA.ipynb)
 
-![EDA](/projects/reproducible_model_workflow/images/EDA.png)
+![EDA](images/EDA.png)
 
 
 ### 3. Basic cleaning

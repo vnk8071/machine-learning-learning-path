@@ -6,7 +6,7 @@ sidebar_position: 4
 # Ford GoBike System Data Exploration
 ## by KhoiVN
 
-Source code: [vnk8071/advanced_data_wrangling](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/advanced_data_wrangling)
+Source code: [vnk8071/communicate_data_findings](https://github.com/vnk8071/machine-learning-in-production/tree/main/projects/communicate_data_findings)
 
 ## Work Directory
 ```
