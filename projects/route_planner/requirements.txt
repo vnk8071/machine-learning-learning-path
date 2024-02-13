@@ -1,0 +1,2 @@
+networkx==1.11
+plotly==2.0.15

@@ -1,0 +1,73 @@
+# Analysis Big O Notation
+
+Read calls.txt and texts.txt required O(n) time to read the file and store the data into a list.
+
+Task 0:
+Prints the first and last element of a list of size n
+
+>  O(n) - Linear Time
+
+Task 1:
+For each element in a list of size n, add into set if not already in set. Then print the set.
+Creating the set of unique telephone numbers: The for loop iterates over each text and call, which is 2n iterations in total.
+For each iteration, it performs four add operations to the set.
+The add operation in a set in Python is O(1).
+Therefore, the total complexity of this part is O(2n) * O(1) = O(n).
+
+>  O(n) - Linear Time
+
+Task 2:
+
+1.Sorting the calls:
+The sorted function in Python uses a sorting algorithm called Timsort, which has a worst-case and average time complexity of O(n log n).
+Therefore, the complexity of this part is O(n log n).
+
+2.Printing the call with the longest duration:
+This operation is O(1) because it's a single operation that doesn't depend on the size of the input.
+
+> O(n log n) - Linearithmic Time
+
+Task 3:
+
+1.Creating the set of Bangalore calls:
+The first for loop iterates over each call, which is n iterations in total.
+For each iteration, it performs an add operation to the set if the condition is met.
+The add operation in a set in Python is O(1).
+Therefore, the total complexity of this part is O(n) * O(1) = O(n).
+
+2.Sorting the set of Bangalore calls:
+The sorted function in Python uses a sorting algorithm called Timsort, which has a worst-case and average time complexity of O(n log n).
+Therefore, the complexity of this part is O(n log n).
+
+3.Printing the sorted Bangalore calls:
+This operation is O(n) because it iterates over each number in the sorted list.
+
+4.Counting the calls from and to Bangalore:
+The second for loop also iterates over each call, which is n iterations in total.
+For each iteration, it performs a couple of condition checks and increment operations, which are O(1).
+Therefore, the total complexity of this part is O(n) * O(1) = O(n).
+
+5.Calculating and printing the percentage:
+These operations are O(1) because they are single operations that don't depend on the size of the input.
+
+> O(n log n) - Linearithmic Time
+
+Task 4:
+
+Creating the sets of possible telemarketers and avoid telemarketers:
+The for loops iterate over each call and text, which is 2n iterations in total.
+For each iteration, it performs an add operation to the set if the condition is met.
+The add operation in a set in Python is O(1).
+Therefore, the total complexity of this part is O(2n) * O(1) = O(n).
+
+Subtracting the sets of avoid telemarketers from possible telemarketers:
+The subtraction operation in a set in Python is O(len(possible_telemarketers)). In the worst case, this is O(n).
+
+Sorting the set of telemarketers:
+The sorted function in Python uses a sorting algorithm called Timsort, which has a worst-case and average time complexity of O(n log n).
+Therefore, the complexity of this part is O(n log n).
+
+Printing the sorted telemarketers:
+This operation is O(n) because it iterates over each number in the sorted list.
+
+> O(n log n) - Linearithmic Time
